@@ -206,3 +206,28 @@ Le dépôt sert à conserver :
 - les raisons des choix.
 
 En cas de contradiction entre une ancienne conversation et une décision documentée plus récente dans ce dépôt, **le dépôt fait foi**.
+
+## 16. Point de départ du développement : les données avant l'interface
+
+La construction du produit doit commencer par l'identification des données métier réellement nécessaires et de leurs relations, avant de figer une interface graphique complète.
+
+PC Lap Counter peut servir d'inventaire fonctionnel pour repérer les concepts utiles accumulés avec l'expérience : pilotes, circuits, championnats, catégories, matériels, courses, affichages, résultats, etc.
+
+Cette observation ne signifie pas que Lab-Traks doit reprendre ses menus, son vocabulaire ou son architecture.
+
+Pour chaque information manipulée, la question de référence est :
+
+> **Le logiciel connaît-il déjà cette donnée ?**
+
+Si oui, elle doit être réutilisée par référence et ne pas être redemandée ou recréée.
+
+## 17. Services Web indépendants
+
+Les futurs services Web évoqués autour de Lab-Traks ne font pas partie du cœur nécessaire au chronométrage.
+
+Deux pistes distinctes existent :
+
+- **StintLab** : extension Web orientée pilote, progression, chronos, voitures, circuits, exercices et statistiques. Elle doit pouvoir rester utilisable indépendamment de Lab-Traks, avec saisie/import simple ou intégration automatisée.
+- **Slot Hub** : portail public permettant aux clubs de publier volontairement événements, calendriers, résultats, live timing et éventuellement flux vidéo. Il vise à mutualiser l'accès au contenu slot actuellement dispersé entre différents réseaux et plateformes.
+
+Lab-Traks doit pouvoir faciliter l'alimentation de ces services, mais ils ne doivent jamais devenir une dépendance du chrono local.
