@@ -231,3 +231,29 @@ Deux pistes distinctes existent :
 - **Slot Hub** : portail public permettant aux clubs de publier volontairement événements, calendriers, résultats, live timing et éventuellement flux vidéo. Il vise à mutualiser l'accès au contenu slot actuellement dispersé entre différents réseaux et plateformes.
 
 Lab-Traks doit pouvoir faciliter l'alimentation de ces services, mais ils ne doivent jamais devenir une dépendance du chrono local.
+
+
+## 18. Simplicité du modèle métier
+
+Le modèle doit rester aussi simple que le besoin réel le permet.
+
+Il ne faut pas multiplier les champs, entités, relations ou écrans « au cas où ». Une information n'est structurée davantage que si un besoin fonctionnel réel le justifie.
+
+Exemple acté : pour un pilote, un unique champ `nom` peut contenir un nom, un prénom, un nom complet ou un pseudo. Il n'est pas nécessaire de créer plusieurs champs simplement parce qu'ils seraient théoriquement possibles.
+
+De même, l'existence d'une entité technique ne justifie pas automatiquement un écran de gestion dédié. Une donnée de référence peut être créée directement au moment où elle est nécessaire, par exemple un club depuis la fiche pilote.
+
+## 19. Aide utilisateur intégrée
+
+Lab-Traks doit être compréhensible par un utilisateur qui découvre le logiciel, avec des explications simples, courtes, efficaces et contextuelles.
+
+Le produit doit prévoir :
+
+- un tour guidé cohérent à la première découverte des écrans ou fonctions importantes ;
+- des bulles/aides contextuelles sur les éléments qui le nécessitent ;
+- une aide accessible ensuite sans imposer de nouveau le tutoriel ;
+- un manuel utilisateur orienté procédures concrètes.
+
+Lorsque cela sera techniquement pertinent, l'aide intégrée et le manuel devront partager une même source de contenu afin d'éviter deux documentations divergentes.
+
+L'aide doit rester facultative et non envahissante.
