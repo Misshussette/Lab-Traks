@@ -195,3 +195,51 @@ Ajouter un nouveau système de détection doit principalement signifier :
 - ajouter sa configuration UI.
 
 Cela ne doit pas nécessiter de modifier le Race Engine pour chaque fabricant.
+
+## 12. Points de chronométrage
+
+Le modèle du Race Engine ne doit pas être limité à une unique ligne départ/arrivée.
+
+Un parcours peut exposer plusieurs **points de chronométrage** :
+
+- départ/arrivée ;
+- split 1, split 2, etc. ;
+- entrée stands ;
+- sortie stands ;
+- autres points qualifiés selon le format.
+
+Le matériel peut fournir ces événements par des technologies différentes. Le Race Engine reçoit des événements normalisés et ne doit pas dépendre de l'origine physique du point.
+
+## 13. Affichages comme consommateurs de données
+
+Les affichages consomment l'état calculé par le Race Engine et ne possèdent pas leur propre vérité métier.
+
+Une configuration d'affichage est une donnée pérenne indépendante de l'écran physique. Elle doit pouvoir être :
+
+- sauvegardée ;
+- rouverte ;
+- modifiée ;
+- dupliquée ;
+- exportée/importée si pertinent ;
+- associée à un écran ou un usage ;
+- réutilisée lors d'un prochain lancement.
+
+Les vues peuvent notamment filtrer la même source de données vers :
+
+- un classement global ;
+- les participants d'une piste donnée ;
+- d'autres vues spécialisées à définir.
+
+Le choix d'une technologie d'affichage déporté n'est pas encore acté.
+
+## 14. Services externes
+
+Le cœur Lab-Traks doit pouvoir exposer ou exporter ses données sans dépendre d'un service distant.
+
+Les futurs services comme StintLab ou Slot Hub doivent utiliser des contrats d'échange propres et documentés plutôt que devenir propriétaires du modèle interne ou de la base locale.
+
+Cette séparation doit permettre :
+
+- d'utiliser Lab-Traks sans aucun service Web ;
+- d'utiliser certains services Web sans Lab-Traks lorsque cela a du sens ;
+- de remplacer un service externe sans réécrire le Race Engine.
