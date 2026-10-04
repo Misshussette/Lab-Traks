@@ -113,3 +113,34 @@ Procédure :
 Il n'est pas nécessaire de décoder tous les matériels de l'histoire avant de commencer le logiciel.
 
 L'architecture doit permettre de les ajouter progressivement sans réécrire le chrono.
+
+## Phidget et RFID
+
+Les matériels Phidget font partie des technologies réellement rencontrées dans l'écosystème PCLC et les usages terrain.
+
+Ils peuvent intervenir comme :
+
+- cartes d'entrées/sorties ;
+- lecteurs RFID ;
+- interfaces auxiliaires.
+
+Le changement de pilote en endurance est un cas important : certains utilisateurs effectuent le changement manuellement, d'autres via automatisme ou RFID.
+
+Lab-Traks ne doit donc pas lier la notion de changement de pilote à une technologie particulière. Le driver Phidget, lorsqu'il sera étudié, devra produire des événements normalisés comme les autres adaptateurs.
+
+Une éventuelle alternative plus innovante à la RFID n'est pas une décision. Elle devra être évaluée uniquement si elle apporte un gain réel de fiabilité, de coût ou de simplicité.
+
+## Détection par section isolée / coupure
+
+Une méthode historique et très répandue consiste à isoler une courte section de rail, typiquement de l'ordre de quelques centimètres, et à détecter la fermeture du circuit provoquée par les tresses de la voiture.
+
+Cette solution est décrite comme très fiable en pratique lorsque les tresses sont en état correct.
+
+Pour Lab-Traks, elle doit être considérée comme une source d'entrée digitale légitime à préserver, notamment via :
+
+- ancien LPT ;
+- carte I/O ;
+- Phidget ;
+- futur adaptateur universel.
+
+Le logiciel ne doit pas imposer une technologie plus complexe lorsqu'une détection simple répond correctement au besoin.
