@@ -155,3 +155,27 @@ Le concept est une piste produit distincte : portail public de mutualisation des
 - publication volontaire et permissions ;
 - intégration ou simple référencement des flux vidéo ;
 - accès des clubs n'utilisant pas Lab-Traks.
+
+
+## Barèmes et calcul des championnats
+
+Le moteur devra pouvoir gérer des classements de championnat et des attributions de points sur différents niveaux, y compris des segments.
+
+À étudier :
+
+- barème selon la position ;
+- calcul lié aux tours ou à la performance ;
+- barèmes dégressifs générés automatiquement ;
+- formules personnalisées ;
+- bonus éventuels ;
+- points attribués à une course entière ou à certains segments ;
+- génération intelligente d'un barème complet selon le nombre de participants, sans saisie case par case ;
+- possibilité de ne rien automatiser et de laisser l'organisateur définir librement son système.
+
+Les propositions ne doivent pas dépendre arbitrairement d'une échelle de slot. PCLC pourra servir à inventorier des méthodes existantes, mais Lab-Traks ne doit pas prétendre qu'un barème est universel sans preuve terrain.
+
+## Designer de circuit
+
+Un futur designer de circuit est envisagé. Il est distinct du champ constructeur/fabricant du circuit.
+
+UR30 sera étudié ultérieurement comme source d'expérience fonctionnelle afin d'identifier les besoins utiles sans recopier son architecture.
