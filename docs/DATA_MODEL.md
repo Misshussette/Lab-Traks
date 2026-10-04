@@ -30,6 +30,7 @@ Le modèle devra au minimum distinguer les concepts suivants :
 - **Stint**
 - **Passage**
 - **Tour**
+- **Point de chronométrage / Timing Point**
 - **Split / secteur**
 - **Pénalité / incident**
 - **Profil d'affichage**
@@ -146,3 +147,78 @@ Le niveau précis d'historisation sera défini lors du schéma détaillé.
 ## Base technique
 
 Le moteur de persistance n'est pas encore choisi. SQLite est une possibilité naturelle à évaluer pour un fonctionnement local léger, mais ce n'est pas une décision actée.
+
+## Source de référence et données dérivées
+
+Le principe « une donnée une seule fois » n'interdit pas les données calculées, historiques ou de projection.
+
+Il faut distinguer :
+
+- **source de référence** : donnée métier pérenne et éditable ;
+- **référence** : lien vers cette donnée depuis une course, une liste ou une configuration ;
+- **donnée dérivée** : calcul produit à partir des sources ;
+- **événement historique** : fait immuable survenu à un instant donné ;
+- **snapshot historique** : copie volontaire uniquement lorsqu'il est nécessaire de figer le contexte d'un événement passé.
+
+La duplication par facilité d'affichage est interdite. Une éventuelle copie historique doit être justifiée par le besoin d'audit ou de conservation du contexte.
+
+## Point de chronométrage
+
+Un circuit ou une configuration de parcours peut définir zéro, un ou plusieurs points de chronométrage.
+
+Un point peut représenter notamment :
+
+- départ/arrivée ;
+- split ;
+- PIT IN ;
+- PIT OUT ;
+- autre point de passage qualifié.
+
+Il doit être distinct :
+
+- du capteur physique qui le mesure ;
+- de la voie ;
+- du véhicule ;
+- du transpondeur.
+
+Cela permet de remplacer ou combiner les technologies matérielles sans modifier le modèle sportif.
+
+## Configurations d'affichage
+
+Un profil d'affichage est une donnée de référence, pas un état jetable de fenêtre.
+
+Il doit pouvoir contenir notamment :
+
+- mise en page ;
+- champs visibles ;
+- ordre/largeurs/alignements ;
+- polices et présentation ;
+- résolution/cible si nécessaire ;
+- source ou filtre de données (par exemple global ou piste) ;
+- association éventuelle avec un écran physique.
+
+Le même profil doit pouvoir être rouvert et modifié sans recréation.
+
+## Traductions
+
+Le modèle doit permettre de distinguer :
+
+- valeur officielle du pack de langue ;
+- éventuelle surcharge locale utilisateur ;
+- métadonnées nécessaires pour savoir si un texte a été personnalisé.
+
+Cette distinction permettra de comparer proprement une mise à jour du pack officiel avec les personnalisations locales sans écraser silencieusement celles-ci.
+
+## Changement de pilote
+
+Le changement de pilote est un événement métier.
+
+Il doit référencer les pilotes et participants existants et enregistrer sa source, qui peut être notamment :
+
+- opérateur ;
+- automatisme ;
+- RFID ;
+- Phidget ou autre interface I/O ;
+- futur dispositif.
+
+Le moyen de déclenchement ne doit pas définir le modèle de données.
