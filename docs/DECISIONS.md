@@ -54,9 +54,13 @@ La base pilote est pérenne ; une course utilise une sélection/sous-liste plut�
 
 Des affichages multiples et configurables sont nécessaires, avec un designer WYSIWYG simple.
 
+Les configurations d'affichage sont des données pérennes : elles doivent pouvoir être enregistrées, rouvertes, modifiées, dupliquées, réutilisées et associées à des écrans ou usages sans être recréées.
+
 ## 2026-10-01 — Splits
 
 Les split times font partie des fonctions importantes du futur système.
+
+Le modèle ne doit pas réduire le chronométrage à une seule ligne départ/arrivée : il doit pouvoir représenter plusieurs points de chronométrage d'un même parcours.
 
 ## 2026-10-04 — PCLC est une source d'expérience, pas le produit cible
 
@@ -88,6 +92,24 @@ Il ne doit pas reposer sur un connecteur unique mélangeant des niveaux électri
 ## 2026-10-04 — GitHub devient la mémoire officielle
 
 Le dépôt `Misshussette/Lab-Traks` devient la source canonique des décisions et connaissances consolidées du projet.
+
+## 2026-10-04 — Préparer les données avant l'UI
+
+La modélisation des données métier précède la conception détaillée de l'interface.
+
+PC Lap Counter sert d'inventaire de besoins et de cas réels, pas de modèle de données à reproduire.
+
+## 2026-10-04 — Changement de pilote indépendant du moyen d'identification
+
+Le changement de pilote est un événement métier distinct de sa source.
+
+Il peut provenir d'une action opérateur, d'un automatisme, d'un lecteur RFID/Phidget ou d'un autre dispositif futur sans changer le modèle interne.
+
+## 2026-10-04 — Services Web non obligatoires
+
+StintLab et un éventuel Slot Hub sont des services Web indépendants du cœur de chronométrage.
+
+Lab-Traks peut les alimenter ou les simplifier, mais son fonctionnement local ne dépend pas d'eux.
 
 ---
 
