@@ -30,7 +30,9 @@ Ce dépôt GitHub est la **source de vérité du projet**. Les conversations, id
 - Les anciens matériels et protocoles doivent être intégrés par des adaptateurs dédiés.
 - Le vocabulaire des matériels externes ne doit jamais imposer le modèle interne de Lab-Traks.
 - Les affichages doivent pouvoir être configurés, sauvegardés et réutilisés.
-- Les splits, stands, changements de pilote, transpondeurs et systèmes multi-voies font partie du périmètre.
+- Les splits, points de chronométrage, stands, changements de pilote, transpondeurs et systèmes multi-voies font partie du périmètre.
+- Les configurations d'affichage sont des données réutilisables et persistantes.
+- Les services Web futurs restent indépendants du cœur local.
 
 ## Documentation
 
