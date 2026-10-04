@@ -90,3 +90,68 @@ Le modèle économique/licence éventuel reste à définir.
 ## Nom et identité
 
 `Lab-Traks` est actuellement le nom du dépôt/projet. Le nom produit final peut encore évoluer.
+
+## Horodatage effectif
+
+Lorsque le matériel fournit son propre temps et que le PC possède aussi un timestamp de réception, les deux doivent pouvoir être conservés.
+
+Reste à définir précisément :
+
+- quelle source devient le temps sportif de référence selon chaque protocole ;
+- quels contrôles permettent de détecter une dérive ou une incohérence ;
+- quels éléments, s'il y en a, doivent être exposés à l'utilisateur normal.
+
+L'objectif UX est d'éviter de demander à l'opérateur un choix technique inutile si le driver peut déterminer automatiquement la meilleure source.
+
+## Traductions personnalisables et contribution communautaire
+
+Le principe d'une traduction modifiable localement est retenu comme besoin, mais le workflow détaillé reste à concevoir.
+
+À décider notamment :
+
+- format des packs de langue ;
+- traçage des champs modifiés localement ;
+- comparaison lors d'une mise à jour du pack officiel ;
+- choix « garder ma version / prendre l'officielle » uniquement sur les conflits ;
+- publication volontaire d'une correction vers une plateforme communautaire ;
+- modération et contrôles automatiques des contributions.
+
+## Affichage déporté et vues
+
+Les besoins confirmés comprennent au minimum l'affichage global et l'affichage filtré par piste.
+
+L'idée d'un affichage spécifiquement orienté pilote/équipe est prometteuse pour de petits écrans au poste de pilotage, mais elle reste une piste fonctionnelle à valider et ne doit pas être considérée comme une exigence acquise.
+
+## Phidget / RFID et changements de pilote
+
+Phidget est déjà rencontré dans les usages réels, notamment avec des cartes I/O et des lecteurs RFID.
+
+À documenter avec des cas terrain avant toute conception spécifique :
+
+- modèles réellement utilisés ;
+- bibliothèque/API employée ;
+- séquence actuelle d'un changement de pilote en endurance ;
+- règles d'automatisme existantes ;
+- cas d'erreur ou de badge non lu ;
+- avantages/inconvénients par rapport à une saisie opérateur.
+
+Aucune solution de remplacement de la RFID n'est décidée à ce stade.
+
+## StintLab
+
+Le nom, le périmètre exact et le modèle de service restent ouverts.
+
+Principe à conserver : il s'agit d'une extension Web indépendante, pouvant être alimentée automatiquement par Lab-Traks mais également utilisable sans lui.
+
+## Slot Hub
+
+Le concept est une piste produit distincte : portail public de mutualisation des événements, calendriers, résultats, live timing et éventuellement flux vidéo des clubs.
+
+À définir plus tard :
+
+- gouvernance ;
+- hébergement ;
+- format d'échange ;
+- publication volontaire et permissions ;
+- intégration ou simple référencement des flux vidéo ;
+- accès des clubs n'utilisant pas Lab-Traks.
