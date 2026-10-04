@@ -96,3 +96,31 @@ Le système devra permettre :
 - exclusion statistique sans destruction de la donnée brute ;
 - justification d'une intervention manuelle ;
 - audit après course.
+
+## Points de chronométrage
+
+Le format sportif doit pouvoir utiliser plusieurs points de chronométrage sans considérer les splits comme un simple ajout cosmétique.
+
+Exemples :
+
+```text
+Départ/Arrivée
+Départ/Arrivée + S1 + S2
+Départ + S1 + S2 + Arrivée + PIT IN + PIT OUT
+```
+
+Les temps de secteur et splits sont calculés à partir de ces points et doivent pouvoir être utilisés pour le classement, l'analyse ou des services futurs.
+
+## Multi-pistes
+
+Une compétition peut utiliser plusieurs pistes ou installations en parallèle, avec un classement général couvrant un plateau plus large que les voitures simultanément présentes sur une seule piste.
+
+Le modèle doit donc distinguer :
+
+- compétition ;
+- piste ;
+- affectation d'un participant à une piste/session ;
+- classement global ;
+- vue filtrée par piste.
+
+Le détail des règles d'agrégation multi-pistes reste à définir selon les formats de course.
