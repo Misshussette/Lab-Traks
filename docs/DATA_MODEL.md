@@ -222,3 +222,75 @@ Il doit référencer les pilotes et participants existants et enregistrer sa sou
 - futur dispositif.
 
 Le moyen de déclenchement ne doit pas définir le modèle de données.
+
+
+## Socle métier minimal validé — première passe
+
+Cette première passe reste volontairement minimale. Aucun champ ne doit être ajouté sans besoin réel.
+
+### Pilote
+
+Données propres au pilote :
+
+- identifiant interne globalement échangeable ;
+- nom : un seul champ libre pouvant contenir selon l'usage un nom, un prénom, un nom complet ou un pseudo ;
+- photo optionnelle.
+
+Le logiciel ne sépare pas artificiellement prénom, nom et pseudo tant qu'aucun besoin ne le justifie.
+
+### Clubs d'un pilote
+
+Un pilote peut appartenir à zéro, un ou plusieurs clubs.
+
+Le lien pilote-club est une relation ; il ne faut jamais fabriquer une valeur concaténée contenant plusieurs clubs.
+
+Lors de l'édition d'un pilote, le club doit être recherchable dans les clubs existants. La saisie filtre la liste et, si le club n'existe pas, permet de le créer directement depuis ce champ. Une page dédiée de création/gestion des clubs n'est pas requise tant qu'un besoin réel ne la justifie.
+
+### Voiture
+
+Premières données utiles :
+
+- identifiant ;
+- nom de la voiture/modèle ;
+- marque slot/fabricant.
+
+Un pilote peut utiliser plusieurs voitures. Les voitures doivent être référencées plutôt que ressaisies afin de préparer notamment les échanges avec StintLab.
+
+### Circuit
+
+Premières données utiles :
+
+- identifiant ;
+- nom ;
+- longueur ;
+- nombre de voies ;
+- image optionnelle ;
+- constructeur/fabricant du circuit.
+
+Le futur designer de circuit est un sujet séparé. UR30 pourra être étudié comme source d'expérience fonctionnelle lorsque le logiciel sera disponible pour analyse.
+
+## Échange de données entre clubs et StintLab
+
+Le modèle doit être pensé dès maintenant pour permettre plus tard des échanges propres entre installations Lab-Traks et avec StintLab, sans rendre ces services obligatoires.
+
+Exemple de besoin : un pilote se rend dans un autre club et transmet les informations utiles ; le club importe le paquet, reconnaît les références déjà connues et récupère les données nécessaires sans tout ressaisir.
+
+Conséquences :
+
+- les identifiants des entités échangeables doivent éviter les collisions entre installations ;
+- l'import doit reconnaître et réutiliser les références existantes ;
+- pilotes, clubs, voitures, circuits, courses, chronos, résultats et statistiques doivent pouvoir être échangés dans des formats documentés ;
+- une donnée historique produite par une course reste rattachée à sa source et ne devient pas une seconde vérité librement modifiable ailleurs ;
+- Lab-Traks reste totalement fonctionnel sans StintLab ni connexion Internet.
+
+## Championnats, courses et classements
+
+Une course peut exister seule ou appartenir à un championnat.
+
+Le résultat brut d'une course ou d'un segment doit rester distinct de la règle qui transforme ce résultat en points.
+
+Le classement d'un championnat doit être calculable à partir des résultats et de sa règle de points, afin de pouvoir recalculer un classement sans modifier l'historique sportif brut.
+
+Les points ne doivent pas être limités au seul résultat final d'une course : le modèle doit pouvoir accueillir des points attribués à des manches, séries, segments, spéciales, finales ou autres découpages pertinents.
+
+Les barèmes automatiques restent à concevoir. L'objectif UX est de pouvoir proposer un barème complet cohérent sans imposer la saisie manuelle de chaque position, tout en laissant la possibilité d'un barème entièrement personnalisé.
