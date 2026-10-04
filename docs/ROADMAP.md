@@ -21,10 +21,12 @@ Avant de coder l'UI complète :
 - catégories ;
 - événements/courses/sessions ;
 - inscriptions ;
-- passages/tours/splits ;
+- passages/tours/points de chronométrage/splits ;
 - matériel ;
 - configurations ;
-- affichages.
+- affichages ;
+- traductions et personnalisations locales ;
+- listes/sélections de participants.
 
 Valider la règle de source unique sur tout le modèle.
 
@@ -127,3 +129,24 @@ Après le chrono fiable :
 - règles personnalisées ;
 - live timing ;
 - autres services optionnels.
+
+## Phase 1 bis — Inventaire fonctionnel PCLC
+
+En parallèle de la modélisation, parcourir les menus et fonctions de PC Lap Counter comme inventaire de besoins réels.
+
+Pour chaque fonction rencontrée :
+
+1. identifier les données manipulées ;
+2. vérifier si elles existent déjà dans notre modèle ;
+3. distinguer lecture, génération et modification ;
+4. conserver uniquement le besoin utile ;
+5. ne jamais reprendre automatiquement le vocabulaire ou la structure PCLC.
+
+## Phase future — Services Web indépendants
+
+Après stabilisation du cœur local, étudier séparément :
+
+- **StintLab**, extension Web orientée pilote/progression, compatible si possible avec d'autres sources que Lab-Traks ;
+- **Slot Hub**, portail de publication volontaire pour événements, calendriers, résultats, live timing et médias.
+
+Ces services ne doivent jamais être nécessaires au déroulement local d'une course.
