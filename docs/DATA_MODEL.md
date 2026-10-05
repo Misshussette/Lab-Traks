@@ -314,3 +314,14 @@ Un point de chronométrage logique appartient au parcours et référence, lorsqu
 Le même capteur physique peut donc servir à plusieurs occurrences logiques d'un parcours sans duplication de sa définition.
 
 Cette séparation permet notamment de modéliser les intermédiaires d'une spéciale rallye, y compris sur une portion parcourue plusieurs fois ou dans des sens différents.
+
+
+### Ligne de mesure
+
+Une ligne de mesure est un point physique ou virtuel de franchissement rattaché au Circuit.
+
+Sa définition physique ne doit pas être dupliquée selon son usage sportif.
+
+Un parcours ou une configuration de course peut référencer cette ligne comme départ, arrivée, intermédiaire, PIT IN, PIT OUT ou autre rôle.
+
+Le matériel associé à la ligne expose ses capacités ; le rôle métier est défini au niveau du parcours/de la course.
