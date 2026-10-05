@@ -327,3 +327,46 @@ Le designer décrit la piste. Le moteur de course définit ensuite les règles d
 **La géométrie ne définit pas la discipline.**
 
 Un même objet Circuit peut être utilisé par différents formats sportifs si sa configuration physique le permet.
+
+
+## Rallye : segments réutilisés et sens de parcours
+
+Certaines pistes de rallye peuvent utiliser **le même slot physique à l'aller et au retour**, notamment lorsque l'installation électrique permet d'inverser le sens de circulation.
+
+Lab-Traks doit donc distinguer :
+
+- la **géométrie physique** du slot ;
+- le **parcours** effectué sur cette géométrie ;
+- le **sens de parcours** d'un segment.
+
+Un segment physique ne doit pas être dupliqué dans le Circuit simplement parce qu'il est parcouru plusieurs fois.
+
+Un parcours peut référencer le même segment plusieurs fois, éventuellement dans des sens opposés.
+
+Exemple conceptuel :
+
+```text
+Départ
+  ↓
+Segment A → Segment B → demi-tour
+                      ↓
+Arrivée ← Segment B ←
+```
+
+`Segment B` n'existe qu'une seule fois dans la géométrie. Le parcours l'utilise une fois dans chaque sens.
+
+Cette séparation permettra également de représenter des parcours avec embranchements, aiguillages ou portions communes si cela devient nécessaire.
+
+### Entraxe des slots
+
+Pour plusieurs slots, l'utilisateur doit pouvoir saisir directement leur **entraxe**, exprimé comme la distance axe-à-axe entre deux slots.
+
+Lors de la création :
+
+- nombre de slots ;
+- option **Slots parallèles** cochée par défaut ;
+- **entraxe initial** en mm.
+
+L'entraxe sert à la génération initiale. Il peut ensuite varier localement : voies rapprochées, écartées, croisées ou repositionnées indépendamment.
+
+Pour une configuration à plusieurs espacements, la géométrie réelle des slots reste la référence ; il n'est pas nécessaire de dupliquer une valeur d'entraxe calculable à partir de cette géométrie.
