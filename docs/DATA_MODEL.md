@@ -294,3 +294,14 @@ Le classement d'un championnat doit être calculable à partir des résultats et
 Les points ne doivent pas être limités au seul résultat final d'une course : le modèle doit pouvoir accueillir des points attribués à des manches, séries, segments, spéciales, finales ou autres découpages pertinents.
 
 Les barèmes automatiques restent à concevoir. L'objectif UX est de pouvoir proposer un barème complet cohérent sans imposer la saisie manuelle de chaque position, tout en laissant la possibilité d'un barème entièrement personnalisé.
+
+
+## Géométrie physique et parcours
+
+Le modèle doit distinguer le tracé physique d'un slot du parcours sportif qui l'emprunte.
+
+Un parcours est une séquence orientée de segments physiques. Le même segment peut être référencé plusieurs fois et dans des sens différents.
+
+Cette distinction est nécessaire notamment pour les pistes de rallye utilisant une portion commune à l'aller et au retour.
+
+Elle respecte la règle de source unique : la géométrie physique n'est jamais dupliquée pour représenter un second passage.
