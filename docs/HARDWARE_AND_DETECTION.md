@@ -186,9 +186,9 @@ Cette technique existe déjà dans des systèmes de slot commerciaux et amateurs
 
 Les capteurs IR modulés rapides constituent une autre variante lorsque la géométrie impose une barrière séparée.
 
-### Mesure de vitesse sans radar
+### Mesure de vitesse moyenne entre deux points
 
-Pour mesurer la vitesse à un point, deux capteurs A et B peuvent être installés à une distance précisément connue.
+Deux capteurs A et B installés à une distance précisément connue permettent de mesurer une **vitesse moyenne sur le segment A-B**. Cette valeur ne doit pas être présentée comme une vitesse instantanée.
 
 ```text
 ---- A -------- distance connue -------- B ---->
@@ -198,7 +198,7 @@ Pour mesurer la vitesse à un point, deux capteurs A et B peuvent être install�
 Le nœud horodate les deux passages avec la même horloge.
 
 ```text
-vitesse = distance(A,B) / (timestamp B - timestamp A)
+vitesse moyenne A-B = distance(A,B) / (timestamp B - timestamp A)
 ```
 
 Avec 10 voies, un nœud destiné à la vitesse peut donc nécessiter jusqu'à 20 entrées numériques.
@@ -259,3 +259,53 @@ En rallye avec un concurrent à la fois, l'association est également simple.
 En digital, plusieurs voitures peuvent utiliser la même voie physique : un capteur optique de passage ne fournit alors pas nécessairement l'identité de la voiture. Lab-Traks doit pouvoir compléter le point de mesure par une technologie d'identification (protocole digital, transpondeur ou autre) lorsque le cas d'usage l'exige.
 
 Le **passage** et l'**identité** restent donc deux capacités distinctes.
+
+
+## Piste de recherche — vision pour les intermédiaires
+
+> Statut : **candidat à prototyper**, pas solution de chronométrage officiel validée.
+
+Le principal coût/complexité d'un intermédiaire multi-voies n'est pas nécessairement l'électronique du capteur mais son installation : un capteur par voie, alignement, pont éventuel, câblage et adaptation aux entraxes.
+
+Une caméra **global shutter** rapide constitue donc une piste différente : déplacer une partie de la complexité du matériel vers le logiciel.
+
+Un seul module placé au-dessus ou à proximité du point de mesure pourrait observer plusieurs voies et utiliser des lignes virtuelles configurées dans Lab-Traks.
+
+Avantages potentiels :
+
+- 1 à 10 voies observées par un seul dispositif ;
+- peu de câblage ;
+- pas de capteur physique à aligner sur chaque slot ;
+- adaptation logicielle à l'entraxe ;
+- intermédiaires virtuels ;
+- possibilité d'estimer trajectoire, ordre de passage et vitesse locale ;
+- installation potentiellement temporaire.
+
+Points à valider impérativement :
+
+- précision réelle de l'horodatage image ;
+- fréquence d'image nécessaire ;
+- exposition et flou à haute vitesse ;
+- éclairage ;
+- occultation de plusieurs voitures ;
+- champ de vision pour 10 voies ;
+- charge CPU sur un vieux PC ;
+- comportement lorsque plusieurs voitures franchissent simultanément la ligne ;
+- calibration géométrique ;
+- précision réellement obtenue par rapport à un capteur matériel.
+
+Des caméras global-shutter USB abordables existent aujourd'hui à 120/240 images/s et certains modules annoncent des fréquences plus élevées en réduisant fortement la zone/résolution. Cela justifie un prototype mais **ne suffit pas à garantir la milliseconde**.
+
+Une solution vision pourrait être acceptable pour des intermédiaires/statistiques même si elle n'atteint pas le niveau de confiance requis pour la ligne officielle départ/arrivée.
+
+## Vitesse au point
+
+Il faut distinguer explicitement :
+
+- **vitesse moyenne A-B** : calculée sur une distance connue entre deux passages ;
+- **vitesse locale estimée par vision** : dérivée d'un déplacement observé sur une fenêtre temporelle ;
+- **vitesse Doppler/radar** : mesure de vitesse radiale par rapport au capteur.
+
+Aucune ne doit être appelée abusivement « vitesse instantanée » sans préciser la méthode.
+
+Le radar Doppler est particulièrement intéressant pour une mesure locale de vitesse, mais sur plusieurs voies il faut résoudre l'association mesure ↔ voiture/voie et corriger la géométrie entre l'axe de déplacement et l'axe du radar.
