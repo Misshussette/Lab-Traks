@@ -124,3 +124,42 @@ Le modèle doit donc distinguer :
 - vue filtrée par piste.
 
 Le détail des règles d'agrégation multi-pistes reste à définir selon les formats de course.
+
+
+## Rallye : spéciales, intermédiaires et scratch
+
+Le rallye doit pouvoir utiliser la géométrie et les parcours définis dans le Circuit sans imposer qu'une spéciale soit une boucle.
+
+Une spéciale peut définir une séquence de points de chronométrage :
+
+```text
+Départ → Inter 1 → Inter 2 → ... → Arrivée
+```
+
+Chaque point logique peut être associé à un capteur physique existant.
+
+### Chronométrage
+
+À partir des passages, le moteur peut calculer :
+
+- temps total de la spéciale ;
+- temps aux intermédiaires ;
+- temps de chaque secteur ;
+- écart au meilleur temps intermédiaire ;
+- écart au scratch de la spéciale ;
+- meilleur temps / scratch ;
+- classements général, catégorie, classe ou autres regroupements configurés ;
+- cumul de plusieurs spéciales ;
+- pénalités et temps corrigé lorsque le règlement l'exige.
+
+Les données élémentaires de chronométrage restent la source. Les classements, écarts et scratchs sont des résultats calculés et ne doivent pas devenir des copies indépendantes de la vérité chronométrique.
+
+### Même capteur utilisé plusieurs fois
+
+Un parcours peut rencontrer plusieurs fois le même point/capteur physique, par exemple lorsqu'un slot est utilisé à l'aller puis au retour.
+
+Le capteur physique n'est pas dupliqué.
+
+Le moteur détermine l'occurrence logique attendue à partir de la progression du concurrent dans la spéciale et, lorsque disponible, du sens ou d'autres informations fournies par le matériel.
+
+Cela permet d'utiliser une infrastructure de détection simple pour obtenir un chronométrage rallye complet.
