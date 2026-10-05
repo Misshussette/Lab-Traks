@@ -194,7 +194,8 @@ UR30 sera étudié ultérieurement comme source d'expérience fonctionnelle afin
 - synchronisation de plusieurs nœuds ;
 - CAN vs RS-485 pour le bus de terrain ;
 - alimentation des nœuds ;
-- caméra global-shutter multi-voies comme alternative à l'installation de capteurs par voie ;
+- caméra 2D global-shutter multi-voies : vérifier l'ambiguïté de déclenchement dans une zone ;
+- line-scan/photo-finish multi-voies : candidat à tester pour supprimer cette ambiguïté ;
 - précision/timestamps/charge CPU d'une solution vision ;
 - radar comme option de mesure de vitesse locale et non comme dépendance ;
 - identification des voitures sur systèmes digitaux.
