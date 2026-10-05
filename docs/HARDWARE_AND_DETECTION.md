@@ -309,3 +309,67 @@ Il faut distinguer explicitement :
 Aucune ne doit être appelée abusivement « vitesse instantanée » sans préciser la méthode.
 
 Le radar Doppler est particulièrement intéressant pour une mesure locale de vitesse, mais sur plusieurs voies il faut résoudre l'association mesure ↔ voiture/voie et corriger la géométrie entre l'axe de déplacement et l'axe du radar.
+
+
+## Piste de recherche — line-scan / principe photo-finish
+
+> Statut : **candidat très intéressant à prototyper pour les intermédiaires**, pas décision matérielle.
+
+Une caméra 2D classique utilisant une zone rectangulaire de détection présente une ambiguïté temporelle : selon le seuil, le contraste, la forme du véhicule et le traitement, la détection peut être déclenchée à différents endroits de la zone. Cette approche ne doit donc pas être supposée précise au millième.
+
+Une technologie différente est le **line-scan**, utilisée notamment en photo-finish sportive.
+
+Le capteur observe une seule ligne optique alignée avec la ligne de mesure et la relit à très haute fréquence.
+
+```text
+       capteur line-scan
+             ↓
+voie 1  =====|=====
+voie 2  =====|=====
+voie 3  =====|=====
+...          |
+voie 10 =====|=====
+             ↑
+       ligne de mesure
+```
+
+La dimension du capteur située dans la largeur de la piste permet de déterminer où le véhicule coupe la ligne, donc potentiellement sa voie. Le temps provient de la succession horodatée des scans.
+
+### Intérêt potentiel pour Lab-Traks
+
+- une seule tête de mesure pour 1 à 10 voies ;
+- aucune zone longitudinale de détection à régler ;
+- pas un capteur électronique par voie ;
+- adaptation aux différents entraxes par configuration logicielle ;
+- passages simultanés visibles à des positions différentes de la ligne ;
+- possibilité de conserver une preuve visuelle temporelle du passage ;
+- fréquence de ligne potentiellement bien supérieure à celle d'une caméra vidéo 2D classique.
+
+### Attention au point de référence du véhicule
+
+Le line-scan résout l'ambiguïté de la **position de la ligne de mesure**, mais il reste nécessaire de définir ce qui constitue le passage d'une voiture :
+
+- premier point de carrosserie ;
+- lame-guide si elle peut être observée ;
+- autre repère identifiable.
+
+Si une ligne de mesure line-scan est comparée à un autre type de capteur qui détecte la lame-guide, la différence géométrique entre le nez de la voiture et le guide peut introduire un décalage dépendant du véhicule.
+
+Pour des temps comparables, les points de référence doivent donc être cohérents ou le décalage doit être compris et maîtrisé.
+
+### Prototype à étudier
+
+Avant toute décision :
+
+1. capteur linéaire/line-scan abordable ;
+2. optique couvrant la largeur maximale visée ;
+3. éclairage constant de la seule ligne observée ;
+4. fréquence de scan réelle ;
+5. timestamp matériel ;
+6. détection simultanée sur plusieurs voies ;
+7. identification de la voie ;
+8. précision mesurée face à un capteur physique de référence ;
+9. coût total et simplicité d'installation ;
+10. charge CPU et possibilité de traiter localement le signal.
+
+Des travaux publiés montrent qu'un système line-scan rapide peut être réalisé à partir de composants courants à coût fortement inférieur à une caméra line-scan industrielle. Cela justifie l'expérimentation mais ne constitue pas encore une solution Lab-Traks validée.
