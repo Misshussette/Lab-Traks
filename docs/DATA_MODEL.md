@@ -305,3 +305,12 @@ Un parcours est une séquence orientée de segments physiques. Le même segment 
 Cette distinction est nécessaire notamment pour les pistes de rallye utilisant une portion commune à l'aller et au retour.
 
 Elle respecte la règle de source unique : la géométrie physique n'est jamais dupliquée pour représenter un second passage.
+
+
+### Points de chronométrage d'un parcours
+
+Un point de chronométrage logique appartient au parcours et référence, lorsque nécessaire, un capteur ou point physique du Circuit.
+
+Le même capteur physique peut donc servir à plusieurs occurrences logiques d'un parcours sans duplication de sa définition.
+
+Cette séparation permet notamment de modéliser les intermédiaires d'une spéciale rallye, y compris sur une portion parcourue plusieurs fois ou dans des sens différents.
