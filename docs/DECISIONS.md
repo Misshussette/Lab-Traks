@@ -147,3 +147,14 @@ Sur une piste bois, chaque slot peut avoir sa propre géométrie. Les voies peuv
 Le designer doit conserver une utilisation simple : création parallèle par défaut puis outils locaux de zone pour générer automatiquement des transitions douces. L'édition manuelle reste possible.
 
 Les croisements doivent pouvoir distinguer une intersection sur le même plan d'un passage à des niveaux différents (pont/tunnel).
+
+
+## 2026-10-05 — Nombre de slots et topologie du circuit
+
+À la création d'une piste libre/bois, l'utilisateur choisit le nombre de slots (1, 2, 3, 4, 5, 6, 7, etc.) sans plafond métier arbitraire.
+
+L'option **Slots parallèles** est activée par défaut pour simplifier la création, mais reste une aide et non une contrainte permanente.
+
+Le modèle de circuit supporte aussi bien une **boucle fermée** qu'un **parcours ouvert**. Cela permet au même designer de représenter notamment circuit classique, rallye et dragster.
+
+La géométrie du circuit et le format sportif restent deux concepts distincts.
