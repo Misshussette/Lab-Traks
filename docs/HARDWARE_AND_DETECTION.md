@@ -476,3 +476,51 @@ Le nombre de voies observables dépendra néanmoins de la résolution optique, d
 ### Variante vitesse
 
 Une tête à deux lignes optiques parallèles séparées d'une distance connue pourrait produire deux timestamps avec la même horloge locale et calculer une **vitesse moyenne locale A-B**. Elle resterait explicitement distincte d'une mesure Doppler/radar.
+
+## Piste de recherche — ligne laser active + capteur linéaire
+
+> Statut : **candidat de prototype**, pas encore un choix matériel.
+
+Une évolution potentiellement plus robuste du principe line-scan consiste à créer activement le plan de détection avec un **laser ligne**.
+
+```text
+                 tête optique
+             laser + récepteur
+                    ↓
+      ─────────────────────────   plan / ligne laser
+       voie 1  voie 2 ... voie N
+```
+
+Le laser ligne matérialise un plan optique très fin à l'emplacement exact du point de chronométrage. Un capteur linéaire / réseau de photodiodes observe la lumière réfléchie ou reçue le long de cette ligne. Lorsqu'une voiture traverse le plan, le profil optique change à une position transversale donnée.
+
+Cette position peut potentiellement être convertie en voie après calibration.
+
+### Point important
+
+Un laser ligne seul ne donne pas la voie. Il faut un récepteur capable de conserver l'information de position le long de la ligne : capteur d'image linéaire, barrette de photodiodes ou autre dispositif équivalent. Une photodiode unique ne fournirait qu'un événement global.
+
+### Intérêt pour Lab-Traks
+
+- le plan laser définit physiquement le lieu du franchissement ;
+- éclairage actif potentiellement plus robuste qu'une analyse de contraste sous lumière ambiante ;
+- une seule ligne peut couvrir plusieurs voies ;
+- la position transversale de la perturbation peut identifier la voie en analogique ;
+- même principe possible pour départ/arrivée, intermédiaires, PIT IN et PIT OUT ;
+- deux lignes séparées d'une distance connue peuvent fournir une vitesse moyenne locale A-B.
+
+Des systèmes expérimentaux de détection automobile ont déjà utilisé une ligne laser projetée sur la chaussée, une optique et un réseau linéaire de photodiodes. La présence d'un véhicule y est déterminée par la modification/disparition de la lumière réfléchie. Des prototypes ont fonctionné avec un échantillonnage d'environ 10 kHz et plusieurs éléments de capteur répartis sur la largeur observée.
+
+### Questions de prototype
+
+1. largeur de piste couverte à une hauteur de montage acceptable ;
+2. résolution transversale suffisante pour distinguer jusqu'à 10 voies ;
+3. précision du timestamp au franchissement du plan ;
+4. comportement avec carrosseries claires, sombres, chromées ou transparentes ;
+5. influence de l'éclairage ambiant et filtrage optique à la longueur d'onde du laser ;
+6. détection de deux voitures simultanées ;
+7. géométrie laser/récepteur et effet de la hauteur variable des carrosseries ;
+8. sécurité laser et puissance minimale utilisable ;
+9. coût et miniaturisation de la tête ;
+10. comparaison avec un line-scan passif.
+
+Cette piste peut être considérée comme une **détection optique active de ligne**, distincte de la reconnaissance vidéo classique.
