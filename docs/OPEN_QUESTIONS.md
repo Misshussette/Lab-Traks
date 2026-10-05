@@ -189,10 +189,12 @@ UR30 sera étudié ultérieurement comme source d'expérience fonctionnelle afin
 - autres barrières IR modulées ;
 - détection électrique/dead strip selon type de piste ;
 - nœud 1 à 10 voies ;
-- variante 2 capteurs par voie pour vitesse locale ;
+- variante 2 capteurs par voie pour vitesse moyenne A-B ;
 - précision réelle de l'horodatage ;
 - synchronisation de plusieurs nœuds ;
 - CAN vs RS-485 pour le bus de terrain ;
 - alimentation des nœuds ;
-- radar comme option et non comme dépendance ;
+- caméra global-shutter multi-voies comme alternative à l'installation de capteurs par voie ;
+- précision/timestamps/charge CPU d'une solution vision ;
+- radar comme option de mesure de vitesse locale et non comme dépendance ;
 - identification des voitures sur systèmes digitaux.
