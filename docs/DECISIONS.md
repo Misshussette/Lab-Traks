@@ -138,3 +138,12 @@ Le tracé doit être relié au même objet Circuit utilisé par le chronométrag
 Pour les pistes bois/routed tracks, les contours intérieur et extérieur sont des géométries éditables indépendamment. Lab-Traks ne suppose pas une largeur de piste constante.
 
 Une génération automatique peut fournir un tracé initial, mais l'utilisateur doit pouvoir élargir ou resserrer localement la surface de piste sans imposer ces modifications aux slots.
+
+
+## 2026-10-05 — Slots bois indépendants
+
+Sur une piste bois, chaque slot peut avoir sa propre géométrie. Les voies peuvent localement se resserrer, s'écarter, se déplacer, se croiser ou permuter leur position.
+
+Le designer doit conserver une utilisation simple : création parallèle par défaut puis outils locaux de zone pour générer automatiquement des transitions douces. L'édition manuelle reste possible.
+
+Les croisements doivent pouvoir distinguer une intersection sur le même plan d'un passage à des niveaux différents (pont/tunnel).
