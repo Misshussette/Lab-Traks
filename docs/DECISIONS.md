@@ -123,3 +123,11 @@ Lab-Traks peut les alimenter ou les simplifier, mais son fonctionnement local ne
 - SQLite n'est pas encore choisi ;
 - aucune version minimale de Windows n'est encore fixée ;
 - aucun modèle de microcontrôleur pour le futur boîtier n'est choisi.
+
+## 2026-10-05 — Designer de circuit simple, bibliothèque riche
+
+Le designer Lab-Traks doit être volontairement plus simple qu'Ultimate Racer 3.0.
+
+La richesse doit venir principalement d'une bibliothèque de rails normalisée et extensible. Les caractéristiques géométriques sont vérifiées à partir de sources fiables et stockées dans notre propre modèle ; les représentations graphiques sont générées par Lab-Traks autant que possible.
+
+Le tracé doit être relié au même objet Circuit utilisé par le chronométrage afin d'éviter toute ressaisie des longueurs, voies, splits et positions de capteurs.
