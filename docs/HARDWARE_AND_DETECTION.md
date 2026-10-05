@@ -776,3 +776,64 @@ Le système reste dégradé proprement selon les capacités présentes :
 - aucune technologie Lab-Traks imposée si le matériel existant fournit déjà les capacités nécessaires.
 
 Cette capacité renforce l'intérêt d'un micro-transpondeur optionnel suffisamment petit et économique pour être installé même dans les voitures de slot les plus contraintes.
+
+## Recherche — zones de puissance et drapeau jaune automatique local
+
+> Statut : **capacité avancée à explorer**, non requise pour le chronométrage de base et non validée comme matériel obligatoire.
+
+La séparation entre mesure, identité et décision sportive ouvre la possibilité d'une gestion active de la piste. Si le circuit est électriquement découpé en secteurs contrôlables, Lab-Traks pourrait demander à un module de puissance de réduire ou couper temporairement la puissance d'une zone lors d'un incident.
+
+Exemples de niveaux d'action :
+
+- anomalie isolée : journaliser / avertir sans action automatique ;
+- sortie probable d'un véhicule : jaune local selon règle configurée ;
+- plusieurs anomalies rapprochées dans une même zone : incident multiple / `big one` probable ;
+- zone d'approche : limitation de puissance avant la zone d'incident ;
+- incident majeur : très forte limitation, coupure locale ou drapeau global selon règles et capacités du matériel.
+
+Le ralentissement ne doit pas commencer uniquement dans la zone où se trouve l'obstacle : il peut être nécessaire d'agir sur un ou plusieurs secteurs **en amont** afin que les véhicules arrivent déjà ralentis.
+
+```text
+secteur 1        secteur 2         secteur 3        secteur 4
+  VERT        JAUNE / LIMITÉ        INCIDENT          VERT
+───────────┬──────────────────┬──────────────────┬──────────
+                                     X X
+```
+
+### Abstraction proposée
+
+Le Race Engine ne commande pas directement un MOSFET, une tension ou un protocole constructeur. Il émet une intention abstraite, par exemple :
+
+```text
+PowerZoneCommand(
+  zone = 2,
+  state = YELLOW,
+  requested_limit = 0.50,
+  reason = INCIDENT_AHEAD
+)
+```
+
+L'adaptateur matériel traduit ensuite cette intention selon ses capacités : limitation PWM/tension, coupure, commande numérique de vitesse, pace-car/yellow flag constructeur, simple signalisation ou absence d'action si non supporté.
+
+### Analogique
+
+Une limitation locale est techniquement possible avec des secteurs de rails électriquement isolés et une électronique de puissance adaptée. Le mode normal doit rester aussi transparent que possible pour le contrôleur du pilote. La conception devra tenir compte des différents contrôleurs, du freinage dynamique, des alimentations, des power taps et des courants de démarrage. Une piste existante non sectorisée conserve naturellement le fonctionnement global classique.
+
+### Numérique
+
+Une coupure électrique locale peut également couper la communication numérique ou provoquer des effets indésirables sur les décodeurs. Quand le système numérique permet de commander la vitesse des véhicules, préférer une commande protocolaire de limitation à une coupure brute de la voie. Les capacités réelles sont exposées par l'adaptateur.
+
+### Détection d'incident
+
+Ne pas déduire automatiquement un accident d'un seul signal faible. Les sources possibles peuvent être combinées :
+
+- identité détectée dans une position incohérente ;
+- franchissement hors trajectoire ;
+- véhicule attendu qui ne rejoint pas le point suivant ;
+- plusieurs anomalies dans la même zone dans une fenêtre temporelle courte ;
+- capteurs/mesures supplémentaires disponibles ;
+- action manuelle du directeur de course ou des pilotes.
+
+Le seuil de déclenchement, la durée, le niveau de puissance et la politique de reprise sont des **règles configurables**, jamais des constantes câblées dans le matériel.
+
+Principe de sûreté : une automatisation de jaune local doit être testable, désactivable et explicable. Une détection incertaine peut alerter sans agir ; une action automatique ne doit être autorisée que lorsque les critères configurés sont satisfaits.
