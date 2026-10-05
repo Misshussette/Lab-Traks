@@ -131,3 +131,10 @@ Le designer Lab-Traks doit être volontairement plus simple qu'Ultimate Racer 3.
 La richesse doit venir principalement d'une bibliothèque de rails normalisée et extensible. Les caractéristiques géométriques sont vérifiées à partir de sources fiables et stockées dans notre propre modèle ; les représentations graphiques sont générées par Lab-Traks autant que possible.
 
 Le tracé doit être relié au même objet Circuit utilisé par le chronométrage afin d'éviter toute ressaisie des longueurs, voies, splits et positions de capteurs.
+
+
+## 2026-10-05 — Pistes bois à largeur libre
+
+Pour les pistes bois/routed tracks, les contours intérieur et extérieur sont des géométries éditables indépendamment. Lab-Traks ne suppose pas une largeur de piste constante.
+
+Une génération automatique peut fournir un tracé initial, mais l'utilisateur doit pouvoir élargir ou resserrer localement la surface de piste sans imposer ces modifications aux slots.
