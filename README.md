@@ -45,6 +45,7 @@ Ce dépôt GitHub est la **source de vérité du projet**. Les conversations, id
 - [Questions ouvertes](docs/OPEN_QUESTIONS.md)
 - [Roadmap](docs/ROADMAP.md)
 - [Reverse engineering PCLC](docs/PCLC_REVERSE_ENGINEERING.md)
+- [Étude Ultimate Racer 3.0](docs/ULTIMATE_RACER_RESEARCH.md)
 
 ## État technique
 
