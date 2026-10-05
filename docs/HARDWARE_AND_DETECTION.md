@@ -743,3 +743,36 @@ Le principal défi de miniaturisation d'un transpondeur magnétique est donc pro
 Découpler franchissement et identité est puissant, mais crée un problème à résoudre proprement lorsque plusieurs véhicules franchissent la ligne presque simultanément. Le moteur doit pouvoir associer sans ambiguïté chaque `Crossing` à la bonne `IdentityObservation`. Les technologies retenues devront être évaluées spécifiquement sur ce cas, pas seulement sur des passages isolés.
 
 Le but n'est donc pas de construire « un meilleur pont slot », mais un **point de mesure universel** auquel différentes technologies d'identification peuvent être associées.
+
+### Intérêt de l'identité embarquée même en slot analogique
+
+En slot analogique, la voie reste suffisante pour le fonctionnement normal et un transpondeur ne doit pas devenir obligatoire. Une identité embarquée optionnelle apporte cependant une sécurité supplémentaire importante.
+
+Cas concret : une voiture affectée à la voie 3 déslote juste avant la ligne et traverse physiquement la zone de mesure de la voie 4. Une détection purement par voie peut attribuer à tort un tour au concurrent de la voie 4.
+
+Si la ligne universelle fournit simultanément une position transversale et qu'une identité embarquée est disponible :
+
+```text
+voiture #17 attendue voie 3
+Crossing : position = zone voie 4
+Identity : #17
+        ↓
+incohérence identité / trajectoire attendue
+        ↓
+aucun tour attribué automatiquement à la voie 4
+aucun tour attribué automatiquement à #17
+événement conservé comme franchissement hors trajectoire / anomalie
+```
+
+Cette logique évite qu'un déslotage, un rebond ou un passage parasite ne crédite le mauvais concurrent.
+
+Principe : **l'identité répond à « qui ? », la ligne répond à « quand et où ? », le Race Engine décide si le franchissement est sportivement valide.**
+
+Le système reste dégradé proprement selon les capacités présentes :
+
+- position/voie seule : fonctionnement analogique classique ;
+- identité seule : passage identifié mais sans validation spatiale ;
+- identité + position : contrôle de cohérence renforcé ;
+- aucune technologie Lab-Traks imposée si le matériel existant fournit déjà les capacités nécessaires.
+
+Cette capacité renforce l'intérêt d'un micro-transpondeur optionnel suffisamment petit et économique pour être installé même dans les voitures de slot les plus contraintes.
