@@ -674,3 +674,72 @@ Le principe peut utiliser une source visible ou proche infrarouge. Un laser visi
 - des capteurs linéaires actifs beaucoup plus rapides existent (plusieurs kHz à >10 kHz), mais leur coût doit rester compatible avec la contrainte économique du projet.
 
 Conclusion : spécifier d'abord les besoins minimaux (line rate, nombre de positions, dynamique, synchronisation lumineuse, coût), puis chercher le capteur actif le moins cher qui les satisfait. Ne pas concevoir le produit autour d'une référence obsolète ou simplement bon marché.
+
+## Direction de recherche — ligne d'arrivée universelle + identité indépendante
+
+> Statut : **orientation de conception à explorer**, pas encore un choix matériel.
+
+Lab-Traks ne doit pas concevoir son futur système de détection comme un accessoire spécifique au slot. Le cas cible peut aussi être une voiture RC ou tout autre mobile franchissant une ligne sans notion de voie physique.
+
+Le système doit donc séparer deux faits élémentaires :
+
+1. **franchissement** : un objet franchit une ligne physique donnée à un instant précis ;
+2. **identité** : quel véhicule / concurrent est associé à ce franchissement.
+
+Le capteur de ligne peut produire au minimum un timestamp et, si disponible, une position transversale X. Il ne doit pas supposer qu'une position X est toujours une « voie ».
+
+```text
+ligne de mesure -> Crossing(timestamp, position?, direction?, quality)
+identification  -> IdentityObservation(vehicle/transponder, timestamp?, quality)
+                         ↓
+                corrélation Lab-Traks
+                         ↓
+              passage sportif identifié
+```
+
+### Selon la discipline
+
+- **slot analogique** : la position transversale / voie peut suffire à identifier le concurrent ; aucun transpondeur embarqué n'est nécessaire ;
+- **slot numérique** : l'identité peut provenir du système numérique existant ou d'un autre mécanisme ;
+- **RC / véhicules libres** : aucune hypothèse de voie ; une identité embarquée devient nécessaire si plusieurs véhicules roulent ;
+- **matériel existant** : MyLaps/AMB, MRT, OpenStint, autres transpondeurs ou systèmes compatibles doivent pouvoir fournir l'identité via adaptateur plutôt que forcer le remplacement du matériel.
+
+### Micro-transpondeur Lab-Traks — cible de recherche
+
+Si Lab-Traks propose un transpondeur propre, sa mission première peut être volontairement minimale : **émettre une identité robuste et unique**. Il n'est pas nécessaire de lui faire porter toute la précision du chronométrage si la ligne de mesure fournit déjà le timestamp officiel.
+
+Objectifs :
+
+- coût unitaire très faible ;
+- consommation très faible ;
+- alimentation compatible avec les petits véhicules ;
+- dimensions suffisamment petites pour viser les véhicules les plus contraints, avec comme test de miniaturisation une voiture de slot F1 ;
+- aucune dépendance à la lumière ou à la visibilité si une technologie magnétique/RF est retenue ;
+- protocole ouvert et documenté ;
+- identité configurable sans infrastructure centrale obligatoire ;
+- coexistence de nombreux véhicules ;
+- possibilité d'utiliser les transpondeurs existants sans transpondeur Lab-Traks.
+
+### Références techniques encourageantes
+
+- OpenStint v2 utilise un ATtiny816/1616/3216, un driver push-pull et une antenne magnétique 5 MHz. Une fabrication assemblée de 40 cartes a été annoncée à moins de 200 USD taxes et livraison incluses en 2026, soit moins de 5 USD par carte avant programmation, câblage et protection.
+- l'ATtiny816 existe en boîtier VQFN 3 x 3 mm : le microcontrôleur n'est donc pas nécessairement le facteur dimensionnant ;
+- des transpondeurs magnétiques RC existants sont de l'ordre de 19 x 16 x 6 mm ;
+- des conceptions open-source RCHourglass existent autour de 19,5 x 19,6 mm ;
+- OpenStint indique que sa propre antenne PCB pourrait encore être réduite en exploitant davantage les couches du PCB.
+
+Le principal défi de miniaturisation d'un transpondeur magnétique est donc probablement **l'antenne / la boucle et son couplage**, davantage que la logique numérique.
+
+### Pistes d'antenne à étudier
+
+- antenne multi-couches directement dans le PCB ;
+- antenne flexible séparée du minuscule PCB logique ;
+- boucle imprimée adaptée à la forme du véhicule ;
+- éventuelle antenne externe très légère autour d'une zone du châssis ;
+- comparaison avec d'autres technologies d'identification uniquement si elles conservent coût, taille, robustesse et coexistence.
+
+### Point de vigilance : corrélation
+
+Découpler franchissement et identité est puissant, mais crée un problème à résoudre proprement lorsque plusieurs véhicules franchissent la ligne presque simultanément. Le moteur doit pouvoir associer sans ambiguïté chaque `Crossing` à la bonne `IdentityObservation`. Les technologies retenues devront être évaluées spécifiquement sur ce cas, pas seulement sur des passages isolés.
+
+Le but n'est donc pas de construire « un meilleur pont slot », mais un **point de mesure universel** auquel différentes technologies d'identification peuvent être associées.
