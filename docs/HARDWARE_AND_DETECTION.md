@@ -524,3 +524,70 @@ Des systèmes expérimentaux de détection automobile ont déjà utilisé une li
 10. comparaison avec un line-scan passif.
 
 Cette piste peut être considérée comme une **détection optique active de ligne**, distincte de la reconnaissance vidéo classique.
+
+### Faisabilité économique et lumière ambiante — première estimation
+
+> Estimation de recherche au 5 octobre 2026. Les références exactes du produit ne sont pas choisies.
+
+Les composants observés montrent que le concept n'est pas économiquement aberrant :
+
+- modules laser ligne maker 650 nm / 5 mW : environ 8 € ;
+- modules laser ligne industriels Class 1, 90° : environ 27 à 70 € selon modèle, davantage pour versions réglables/spéciales ;
+- TCD1304 3648 pixels : environ 38 € pièce, mais probablement très surdimensionné pour notre besoin ;
+- microcontrôleur de classe Pico 2 : environ 5 USD en carte de développement ;
+- un filtre passe-bande industriel 650 nm peut coûter environ 44 €, alors que les filtres optiques de laboratoire très étroits peuvent dépasser largement 100 €.
+
+Un pont/tête de prototype réalisé à l'unité avec des composants sur étagère peut donc facilement atteindre 100 à 200 €. Cela ne représente pas le coût cible d'un produit optimisé.
+
+Pour Lab-Traks, il faut rechercher un récepteur beaucoup moins surdimensionné. Le système automobile expérimental documenté utilisait une barrette de 24 photodiodes et un échantillonnage à 10 kHz ; cela confirme qu'une résolution de plusieurs milliers de pixels n'est pas intrinsèquement nécessaire.
+
+Hypothèse à tester : 32 à 128 positions transversales utiles pourraient suffire pour identifier proprement jusqu'à 10 voies après calibration. Cette plage n'est pas encore validée.
+
+### Cible de coût à étudier
+
+Ordres de grandeur souhaitables, sans engagement tant que le prototype n'existe pas :
+
+- prototype maker fonctionnel : ~70–120 € de composants selon le récepteur ;
+- prototype propre/sûr avec laser Class 1, optique et mécanique adaptées : ~120–200 € à l'unité ;
+- produit optimisé en petite série : viser un BOM de l'ordre de 40–80 € si un récepteur adapté et une optique économique sont trouvés ;
+- prix public souhaitable : idéalement <100 €, encore acceptable vers 100–150 € si la tête est réellement universelle et autonome.
+
+À titre de comparaison marché, les ponts infrarouges DS universels observés en 2026 sont affichés autour de 88 € en 2 voies, 110 € en 4 voies, 168 € en 6 voies et 185–200 € en 8 voies, sans constituer à eux seuls tout le système de chronométrage.
+
+### Immunité à la lumière ambiante
+
+La cible n'est pas d'augmenter brutalement la puissance laser pour dominer la lumière ambiante.
+
+Architecture privilégiée à expérimenter :
+
+1. laser modulé/pulsé à une fréquence connue ;
+2. acquisition synchronisée avec cette modulation ;
+3. comparaison/soustraction laser ON / laser OFF ou détection synchrone ;
+4. filtre optique centré autour de la longueur d'onde du laser si nécessaire ;
+5. petit pare-soleil/baffle noir autour du récepteur ;
+6. auto-calibration du niveau de fond au démarrage et surveillance de la marge de signal.
+
+La modulation et la détection synchrone sont des techniques industrielles éprouvées pour rejeter lumière ambiante et bruit basse fréquence.
+
+Objectif raisonnable : fonctionnement automatique de l'obscurité à un environnement intérieur très fortement éclairé.
+
+Le **soleil direct dans le récepteur ne doit pas être promis avant essais** : même un signal modulé ne peut pas être extrait si la photodiode ou l'étage analogique est physiquement saturé. Les capteurs photoélectriques industriels eux-mêmes publient des limites d'éclairement et recommandent d'éviter le soleil direct.
+
+### Couverture géométrique indicative
+
+Un laser ligne avec angle d'éventail de 90° produit théoriquement une largeur proche de deux fois la hauteur de montage :
+
+- hauteur 25 cm → ~50 cm de ligne ;
+- hauteur 30 cm → ~60 cm ;
+- hauteur 50 cm → ~1 m ;
+- hauteur 75 cm → ~1,5 m.
+
+Un module commercial 90° confirme par exemple une ligne de 2 m à 1 m de distance. Le récepteur doit naturellement posséder un champ de vue compatible.
+
+Cette géométrie rend plausible une seule tête pour 1 à 10 voies, avec hauteur/montage adaptés, mais la précision aux extrémités et les distorsions optiques devront être mesurées.
+
+### Sécurité laser
+
+Pour un produit destiné à des clubs et au public, privilégier une conception dont le système final est correctement classifié et sûr. Des modules ligne commerciaux existent en Class 1. Un module maker 5 mW vendu comme Class III peut servir à des essais encadrés mais ne constitue pas une référence acceptable pour le produit final.
+
+Le coût de conformité/certification du produit final devra être intégré au projet et ne se résume pas au prix de la diode.
