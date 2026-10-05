@@ -632,3 +632,45 @@ Une architecture 48/64 cellules pourrait donc avoir une électronique de base tr
 Première cible de recherche : vérifier s'il est possible d'obtenir un coût de composants électroniques/optique de l'ordre de 10–15 € par point de détection avant mécanique et conformité. Ce n'est pas encore un objectif de prix public validé.
 
 Le TCD1304 reste très utile comme instrument de prototype et de caractérisation grâce à sa forte résolution. Il ne doit pas être supposé nécessaire dans le produit final.
+
+### Critère éliminatoire — lumière ambiante et géométrie du rideau
+
+Le concept de rideau optique n'est intéressant pour Lab-Traks que s'il supprime, dans son domaine d'utilisation garanti, la dépendance pratique à la luminosité ambiante. L'utilisateur ne doit pas avoir à régler sa détection parce que la salle est plus claire, plus sombre ou éclairée différemment.
+
+Il est physiquement incorrect de promettre « 100 % quelle que soit toute luminosité imaginable » : un récepteur optique peut être saturé, notamment par une source extrêmement intense ou le soleil direct dans l'optique. La cible produit doit donc être :
+
+- très large enveloppe lumineuse testée et garantie ;
+- aucune adaptation manuelle à l'éclairage dans cette enveloppe ;
+- source active modulée et mesure synchrone / soustraction du fond ;
+- filtrage spectral et mécanique si nécessaire ;
+- mesure permanente de la marge signal/bruit ;
+- détection explicite de saturation ou de signal insuffisant ;
+- en dehors de l'enveloppe valide, **refuser la mesure plutôt que générer un faux passage silencieux**.
+
+Cette robustesse à la lumière est un **critère éliminatoire** pour retenir le rideau optique comme solution Lab-Traks.
+
+#### Rien sous la piste
+
+Une barrière traversante classique exige un émetteur et un récepteur opposés. Pour Lab-Traks, placer une électronique de réception sous la piste ou un capteur par voie irait à l'encontre de l'objectif d'installation universelle.
+
+Architecture à privilégier pour la recherche : source active et récepteur dans la même tête au-dessus de la piste, en mode réflexion active. La source crée une ligne optique sur la piste ; une optique image cette ligne sur un capteur linéaire. La voiture masque/modifie localement le retour et sa position transversale fournit la voie.
+
+```text
+             tête unique
+       source + récepteur linéaire
+                 ↓ ↑
+                 ↓ ↑ retour
+================================= piste
+        ligne optique active
+```
+
+Le principe peut utiliser une source visible ou proche infrarouge. Un laser visible peut éventuellement n'être qu'une aide d'alignement ; la technologie finale d'illumination reste à choisir.
+
+#### Vitesse des capteurs linéaires — correction importante
+
+- TCD1304 : 3648 pixels, mais Toshiba indique environ 0,2 kHz de line rate ; intéressant pour caractériser l'optique, probablement trop lent comme référence de chronométrage au millième.
+- TSL1401CL : 128 pixels, fonctionnement jusqu'à 8 MHz et intégration minimale d'environ 33,75 µs ; très intéressant techniquement et économiquement pour expérimentation, mais **produit officiellement discontinué** par ams OSRAM et donc impropre comme dépendance produit à long terme.
+- TCD1103GFG : composant Toshiba actif, 1500 pixels, environ 1,2 kHz de line rate et autour de 10–14 € selon quantité/distributeur ; candidat à étudier mais marge temporelle plus faible, surtout si la stratégie lumineuse nécessite plusieurs acquisitions.
+- des capteurs linéaires actifs beaucoup plus rapides existent (plusieurs kHz à >10 kHz), mais leur coût doit rester compatible avec la contrainte économique du projet.
+
+Conclusion : spécifier d'abord les besoins minimaux (line rate, nombre de positions, dynamique, synchronisation lumineuse, coût), puis chercher le capteur actif le moins cher qui les satisfait. Ne pas concevoir le produit autour d'une référence obsolète ou simplement bon marché.
