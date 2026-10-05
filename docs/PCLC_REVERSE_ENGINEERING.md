@@ -967,3 +967,10 @@ Le projet de « boîtier universel » est techniquement réaliste **si on le con
 La pièce centrale n'est pas le connecteur : c'est le **modèle métier et événementiel propre à notre logiciel, avec timestamp fiable**. Les protocoles externes ne dictent jamais ce modèle : ils sont décodés puis traduits vers lui. Une fois ce cœur fixé, chaque ancien système devient un adaptateur remplaçable. Le boîtier peut ensuite agréger les interfaces électriques réellement pertinentes, tandis que les dongles USB/RF propriétaires restent gérés côté PC quand c'est plus rationnel.
 
 Le protocole PCLC Arduino fournit dès maintenant une sortie de compatibilité simple et documentée : on peut donc construire notre propre système sans attendre le décodage complet de tous les anciens matériels et rester compatible avec PC Lap Counter pendant la transition. **PC Lap Counter reste ici une source d'expérience, de cas réels et d'interopérabilité ; l'objectif n'est pas de le reproduire fonction pour fonction.**
+### Comportement PIT observé à conserver comme référence
+
+Retour d'usage PCLC : l'entrée dans les stands n'est pas assimilée naïvement à un simple front de capteur. Une fois `PIT IN` engagé et la condition d'entrée satisfaite, l'absence de `PIT OUT` maintient le concurrent dans l'état PIT et permet, selon les règles configurées, de commencer le ravitaillement.
+
+Cela rejoint les paramètres retrouvés dans les modules d'E/S brutes (`PITIN_MIN`, `PITOUT_MIN`, maintien/dwell et sortie au relâchement selon configuration).
+
+À reprendre comme **comportement fonctionnel de référence**, sans imposer l'implémentation interne de PCLC à Lab-Traks.
