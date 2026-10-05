@@ -179,3 +179,20 @@ Les propositions ne doivent pas dépendre arbitrairement d'une échelle de slot.
 Un futur designer de circuit est envisagé. Il est distinct du champ constructeur/fabricant du circuit.
 
 UR30 sera étudié ultérieurement comme source d'expérience fonctionnelle afin d'identifier les besoins utiles sans recopier son architecture.
+
+
+## Points de mesure et intermédiaires
+
+À prototyper/comparer :
+
+- optocoupleur sous slot déclenché par la lame-guide ;
+- autres barrières IR modulées ;
+- détection électrique/dead strip selon type de piste ;
+- nœud 1 à 10 voies ;
+- variante 2 capteurs par voie pour vitesse locale ;
+- précision réelle de l'horodatage ;
+- synchronisation de plusieurs nœuds ;
+- CAN vs RS-485 pour le bus de terrain ;
+- alimentation des nœuds ;
+- radar comme option et non comme dépendance ;
+- identification des voitures sur systèmes digitaux.
