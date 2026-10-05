@@ -373,3 +373,50 @@ Avant toute décision :
 10. charge CPU et possibilité de traiter localement le signal.
 
 Des travaux publiés montrent qu'un système line-scan rapide peut être réalisé à partir de composants courants à coût fortement inférieur à une caméra line-scan industrielle. Cela justifie l'expérimentation mais ne constitue pas encore une solution Lab-Traks validée.
+
+
+## Principe fonctionnel — ligne de mesure générique
+
+Indépendamment de la technologie physique retenue, Lab-Traks doit pouvoir modéliser une **ligne de mesure générique**.
+
+Une ligne de mesure produit d'abord un événement élémentaire :
+
+- instant de franchissement ;
+- position transversale / voie lorsque le matériel permet de la déterminer ;
+- sens lorsque disponible ;
+- qualité/confiance et données diagnostiques éventuelles.
+
+La fonction sportive n'est pas codée dans le capteur. La configuration peut donner à la même capacité de franchissement un rôle tel que :
+
+- départ ;
+- arrivée ;
+- comptage de tour ;
+- intermédiaire ;
+- limite de secteur ;
+- PIT IN ;
+- PIT OUT ;
+- autre point logique d'un parcours.
+
+Cette abstraction doit fonctionner avec un line-scan, une barrière IR, une coupure électrique, un transpondeur ou tout autre matériel compatible.
+
+### Cas analogique
+
+Sur une piste analogique, la position du franchissement permet généralement de déterminer la voie et la voie détermine le concurrent actuellement affecté à celle-ci.
+
+Une tête multi-voies peut donc éviter une identification individuelle de la voiture pour le chronométrage courant.
+
+Pour les stands, une ligne **PIT IN** et éventuellement une ligne **PIT OUT** permettent de dater l'entrée, la sortie et la durée du passage.
+
+Une ligne de franchissement seule ne prouve pas une présence continue dans toute une zone. Si un règlement ou une fonction exige cette information, une capacité de détection de présence distincte sera nécessaire.
+
+### Vitesse
+
+Une ligne unique fournit un instant de franchissement, pas une vitesse.
+
+Une mesure de vitesse nécessite une information supplémentaire :
+
+- deux lignes spatialement séparées : vitesse moyenne entre ces deux lignes ;
+- système optique/multi-ligne capable d'estimer un déplacement sur une distance connue : vitesse locale moyenne sur cette très courte distance ;
+- Doppler/radar : vitesse radiale mesurée localement.
+
+Lab-Traks doit conserver la méthode de mesure avec la valeur afin de ne pas présenter des grandeurs différentes comme équivalentes.
