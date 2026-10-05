@@ -158,3 +158,11 @@ L'option **Slots parallèles** est activée par défaut pour simplifier la créa
 Le modèle de circuit supporte aussi bien une **boucle fermée** qu'un **parcours ouvert**. Cela permet au même designer de représenter notamment circuit classique, rallye et dragster.
 
 La géométrie du circuit et le format sportif restent deux concepts distincts.
+
+## PIT analogique : compter les arrêts réels, pas les franchissements
+
+- `PIT IN` ouvre un PIT candidat ; il ne compte pas immédiatement un arrêt.
+- Si `PIT OUT` intervient avant le délai de validation configuré, le passage n'est pas compté comme arrêt PIT.
+- Si le délai est atteint sans `PIT OUT`, l'arrêt est validé une seule fois et le ravitaillement peut être autorisé.
+- `PIT OUT` termine l'arrêt validé et le ravitaillement ; il ne crée pas un nouvel arrêt.
+- Le délai est configurable selon l'installation/règlement ; 3 s est l'exemple de référence discuté.
