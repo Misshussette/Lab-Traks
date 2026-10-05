@@ -837,3 +837,69 @@ Ne pas déduire automatiquement un accident d'un seul signal faible. Les sources
 Le seuil de déclenchement, la durée, le niveau de puissance et la politique de reprise sont des **règles configurables**, jamais des constantes câblées dans le matériel.
 
 Principe de sûreté : une automatisation de jaune local doit être testable, désactivable et explicable. Une détection incertaine peut alerter sans agir ; une action automatique ne doit être autorisée que lorsque les critères configurés sont satisfaits.
+
+## Principe d'installation — aucune modification irréversible de la piste
+
+> Orientation produit forte : le matériel Lab-Traks doit, autant que techniquement possible, se poser sur une piste existante sans perçage, découpe, fraisage ni intégration permanente de capteurs dans les rails.
+
+Une même `MeasurementLine` logique peut être matérialisée par plusieurs formes physiques. Le Race Engine utilise ses capacités déclarées et ne dépend pas de sa mécanique.
+
+### Variante A — pont / tête au-dessus de la piste
+
+Installation amovible au-dessus de la piste. Candidat privilégié lorsque l'on souhaite :
+
+- timestamp sur une ligne optique physiquement bien définie ;
+- position transversale du franchissement ;
+- déduction de voie en analogique ;
+- contrôle de cohérence identité / trajectoire ;
+- éventuellement fonctionnement sans transpondeur pour le slot analogique.
+
+### Variante B — ruban / antenne sous la piste
+
+Une antenne magnétique très fine, un ruban flexible ou une boucle équivalente peut être placé sous une piste compatible, sans visibilité depuis le dessus et sans percer la piste. Cette variante suppose une identité embarquée ou un transpondeur compatible.
+
+Les systèmes de chronométrage RC à couplage magnétique démontrent déjà qu'une boucle de réception peut être installée sous une piste et détecter un transpondeur sans ligne de vue. La géométrie, la portée et la fiabilité doivent toutefois être validées spécifiquement sur :
+
+- pistes plastiques avec rails métalliques ;
+- pistes bois avec cuivre/tresse ;
+- différentes épaisseurs ;
+- différentes hauteurs et orientations de transpondeur ;
+- moteurs, alimentations et parasites électriques du slot ;
+- plusieurs voitures proches ou simultanées.
+
+Une boucle magnétique classique possède une **zone de couplage** et ne doit pas être supposée équivalente à une ligne optique très fine. Sa précision de timestamp, son point de référence physique et sa capacité à départager des arrivées très serrées devront être mesurés.
+
+### Variante C — hybride
+
+Un utilisateur peut combiner une ligne optique amovible et une antenne d'identification sous piste :
+
+```text
+          pont optique
+       QUAND + OÙ exactement
+               ↓
+================================ piste
+--------------- ---------------- ruban / boucle sous piste
+               ↑
+              QUI
+```
+
+Cette combinaison pourrait fournir simultanément une référence géométrique de franchissement très précise et une identité robuste indépendante de la lumière.
+
+### Installation par capacités
+
+Lab-Traks ne doit pas présenter ces variantes comme des matériels concurrents mais comme des fournisseurs de capacités :
+
+```text
+OpticalGate       -> crossing_time + transverse_position
+UnderTrackLoop    -> vehicle_identity + crossing_zone
+HybridGate        -> crossing_time + transverse_position + vehicle_identity
+LegacyDetector    -> capacités exposées par son adaptateur
+```
+
+Le logiciel adapte ensuite les fonctions disponibles. Une installation simple reste fonctionnelle ; une installation enrichie gagne en contrôle sans nécessiter de ressaisie ni de modèle de course différent.
+
+### Objectif économique supplémentaire
+
+Les éléments répétés autour du circuit doivent être les moins coûteux et les plus passifs possible. Une piste de recherche importante consiste à mutualiser l'électronique coûteuse de décodage et à rendre chaque point supplémentaire essentiellement constitué d'une antenne/ruban/élément simple, si cela peut être fait sans dégrader la précision ni manquer des passages simultanés.
+
+Le but d'expérience utilisateur est : **poser, brancher, calibrer, courir — jamais modifier définitivement la piste pour adopter Lab-Traks.**
