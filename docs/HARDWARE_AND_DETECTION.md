@@ -420,3 +420,59 @@ Une mesure de vitesse nécessite une information supplémentaire :
 - Doppler/radar : vitesse radiale mesurée localement.
 
 Lab-Traks doit conserver la méthode de mesure avec la valeur afin de ne pas présenter des grandeurs différentes comme équivalentes.
+
+## Direction de prototype — tête optique Lab-Traks générique
+
+> Statut : **direction privilégiée à étudier**, sous réserve des résultats du prototype line-scan.
+
+Si le line-scan atteint la précision, la fiabilité et le coût recherchés, l'objectif est d'utiliser autant que possible **la même famille de têtes optiques** pour les différents points de détection.
+
+Exemples :
+
+- départ / arrivée ;
+- intermédiaires ;
+- limites de secteurs ;
+- PIT IN ;
+- PIT OUT ;
+- points de contrôle rallye ;
+- points de contrôle drag ;
+- éventuellement mesure de vitesse avec une variante à deux lignes optiques espacées d'une distance connue.
+
+### Traitement local
+
+Une tête optique ne devrait pas imposer au PC de traiter plusieurs flux vidéo bruts en permanence.
+
+La cible architecturale est :
+
+```text
+capteur optique / line-scan
+          ↓
+traitement local de la ligne
+          ↓
+horodatage local
+          ↓
+événement compact
+          ↓
+Lab-Traks
+```
+
+Le PC reçoit donc principalement des événements de franchissement et des diagnostics, pas nécessairement les données optiques brutes continues.
+
+Cette approche vise à :
+
+- préserver les performances sur des PC anciens ;
+- multiplier les points de mesure sans multiplier les traitements lourds côté PC ;
+- garder un câblage simple ;
+- utiliser un matériel identique pour plusieurs rôles ;
+- permettre une configuration logicielle des voies et du rôle de chaque tête ;
+- faciliter remplacement, diagnostic et calibration.
+
+### Une tête, plusieurs largeurs de piste
+
+La tête doit idéalement être indépendante du nombre de voies dans sa plage physique de couverture. Une installation 1, 2, 4, 6 ou 10 voies utilise le même principe ; Lab-Traks calibre les zones transversales correspondant aux voies/slots réellement présents.
+
+Le nombre de voies observables dépendra néanmoins de la résolution optique, de la hauteur de montage, du champ de vision et de la précision obtenue. La capacité « 1 à 10 voies » doit donc être démontrée par prototype et non supposée.
+
+### Variante vitesse
+
+Une tête à deux lignes optiques parallèles séparées d'une distance connue pourrait produire deux timestamps avec la même horloge locale et calculer une **vitesse moyenne locale A-B**. Elle resterait explicitement distincte d'une mesure Doppler/radar.
