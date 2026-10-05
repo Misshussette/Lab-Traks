@@ -533,11 +533,11 @@ Les composants observés montrent que le concept n'est pas économiquement aberr
 
 - modules laser ligne maker 650 nm / 5 mW : environ 8 € ;
 - modules laser ligne industriels Class 1, 90° : environ 27 à 70 € selon modèle, davantage pour versions réglables/spéciales ;
-- TCD1304 3648 pixels : environ 38 € pièce, mais probablement très surdimensionné pour notre besoin ;
+- TCD1304 3648 pixels : environ 38 € pièce chez certains distributeurs industriels, mais des modules sont observés à moins de 20 € sur des marketplaces grand public ; pour un prototype, ce niveau de prix rend le TCD1304 très intéressant malgré sa résolution largement supérieure au besoin minimal ;
 - microcontrôleur de classe Pico 2 : environ 5 USD en carte de développement ;
 - un filtre passe-bande industriel 650 nm peut coûter environ 44 €, alors que les filtres optiques de laboratoire très étroits peuvent dépasser largement 100 €.
 
-Un pont/tête de prototype réalisé à l'unité avec des composants sur étagère peut donc facilement atteindre 100 à 200 €. Cela ne représente pas le coût cible d'un produit optimisé.
+Un pont/tête de prototype réalisé à l'unité avec des composants industriels sur étagère peut facilement atteindre 100 à 200 €. En utilisant un module TCD1304 à moins de 20 € et des composants maker adaptés, un premier prototype expérimental pourrait plutôt viser environ 40 à 70 € de composants, hors mécanique élaborée et conformité produit. Cela ne représente pas encore le coût d'un produit final.
 
 Pour Lab-Traks, il faut rechercher un récepteur beaucoup moins surdimensionné. Le système automobile expérimental documenté utilisait une barrette de 24 photodiodes et un échantillonnage à 10 kHz ; cela confirme qu'une résolution de plusieurs milliers de pixels n'est pas intrinsèquement nécessaire.
 
@@ -547,7 +547,7 @@ Hypothèse à tester : 32 à 128 positions transversales utiles pourraient suffi
 
 Ordres de grandeur souhaitables, sans engagement tant que le prototype n'existe pas :
 
-- prototype maker fonctionnel : ~70–120 € de composants selon le récepteur ;
+- prototype maker fonctionnel : viser ~40–70 € de composants si le module TCD1304 <20 € convient réellement ; prévoir davantage selon laser, optique, alimentation et mécanique ;
 - prototype propre/sûr avec laser Class 1, optique et mécanique adaptées : ~120–200 € à l'unité ;
 - produit optimisé en petite série : viser un BOM de l'ordre de 40–80 € si un récepteur adapté et une optique économique sont trouvés ;
 - prix public souhaitable : idéalement <100 €, encore acceptable vers 100–150 € si la tête est réellement universelle et autonome.
