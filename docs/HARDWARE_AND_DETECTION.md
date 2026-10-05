@@ -591,3 +591,44 @@ Cette géométrie rend plausible une seule tête pour 1 à 10 voies, avec hauteu
 Pour un produit destiné à des clubs et au public, privilégier une conception dont le système final est correctement classifié et sûr. Des modules ligne commerciaux existent en Class 1. Un module maker 5 mW vendu comme Class III peut servir à des essais encadrés mais ne constitue pas une référence acceptable pour le produit final.
 
 Le coût de conformité/certification du produit final devra être intégré au projet et ne se résume pas au prix de la diode.
+
+### Contrainte économique — le coût répété est prioritaire
+
+Le coût d'un point de détection ne doit pas être justifié par comparaison avec les systèmes historiques plus chers. Une installation peut nécessiter plusieurs points (départ/arrivée, intermédiaires, PIT IN/PIT OUT, etc.) : le coût se multiplie immédiatement.
+
+Objectif de conception : rendre la partie répétée sur la piste aussi simple et économique que possible. Une tête à 50 € peut déjà devenir trop coûteuse lorsqu'elle est multipliée par trois, quatre ou davantage.
+
+Lab-Traks ne doit pas dépendre de son propre matériel pour être adopté : les matériels existants compatibles restent utilisables via les adaptateurs. Le futur matériel Lab-Traks doit apporter un avantage réel de simplicité, universalité et coût, pas seulement reproduire un pont existant.
+
+#### Candidat ultra-low-cost : barre optique segmentée
+
+> Statut : piste de recherche, non validée optiquement.
+
+Au lieu d'un CCD linéaire complet dans chaque tête, étudier une barre contenant de nombreux phototransistors/photodiodes très économiques, éclairée par une ligne optique commune.
+
+```text
+éclairage ligne actif
+────────────────────────────────
+       voiture
+          ↓
+● ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●   barre de réception
+        x x x
+          ↑
+   cellules perturbées
+```
+
+Après calibration, les groupes de cellules correspondent aux positions transversales et donc aux voies en analogique. Le système n'a pas besoin de mesurer une image : il mesure uniquement un profil lumineux discret.
+
+Ordres de grandeur composants observés en octobre 2026 :
+
+- phototransistors SMD : environ 0,03 à 0,05 USD pièce à volume modéré ;
+- 64 phototransistors : environ 2 à 4 USD ;
+- RP2040 nu : environ 0,76 USD à 100 pièces ;
+- multiplexeurs analogiques 8:1 économiques : quelques centimes à ~0,20 USD selon référence/volume ;
+- module laser ligne maker : quelques euros.
+
+Une architecture 48/64 cellules pourrait donc avoir une électronique de base très peu coûteuse. Le coût réel sera dominé par PCB, mécanique, connectique, optique/éclairage, assemblage, sécurité/conformité et marge commerciale.
+
+Première cible de recherche : vérifier s'il est possible d'obtenir un coût de composants électroniques/optique de l'ordre de 10–15 € par point de détection avant mécanique et conformité. Ce n'est pas encore un objectif de prix public validé.
+
+Le TCD1304 reste très utile comme instrument de prototype et de caractérisation grâce à sa forte résolution. Il ne doit pas être supposé nécessaire dans le produit final.
