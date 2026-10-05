@@ -195,3 +195,41 @@ Pour Lab-Traks :
 - les règles exactes doivent rester configurables selon matériel et format de course.
 
 Cela permet de reproduire les comportements éprouvés de PCLC sans figer Lab-Traks sur une implémentation matérielle particulière.
+
+### Passage en pitlane ≠ arrêt au stand
+
+Pour une piste analogique dont la zone PIT est délimitée par `PIT IN` et `PIT OUT`, Lab-Traks doit distinguer un simple transit dans la pitlane d'un véritable arrêt au stand.
+
+Le principe retenu est un **PIT candidat avec délai de validation configurable**.
+
+Exemple avec un seuil configuré à 3 secondes :
+
+```text
+PIT IN
+  ↓
+PIT CANDIDAT
+  ├─ PIT OUT avant 3 s → simple passage, 0 arrêt PIT, 0 ravitaillement
+  │
+  └─ aucun PIT OUT après 3 s
+           ↓
+      ARRÊT PIT VALIDÉ
+      compteur PIT +1
+      ravitaillement autorisé
+           ↓
+        PIT OUT
+           ↓
+      fin de l'arrêt / fin du ravitaillement
+```
+
+Le seuil de 3 secondes est un exemple de configuration, pas une constante imposée.
+
+Conséquences :
+
+- `PIT IN` ne doit pas incrémenter immédiatement le compteur d'arrêts ;
+- `PIT OUT` ne constitue pas un second arrêt ;
+- un transit trop court dans la zone peut être journalisé comme passage PIT sans être compté comme arrêt ;
+- un arrêt validé n'est compté qu'une seule fois, quelle que soit la quantité d'événements internes utilisés pour le gérer ;
+- le ravitaillement ne devient actif qu'après validation de l'arrêt et selon les autres règles de course ;
+- le temps passé dans la zone et le temps de ravitaillement doivent rester deux mesures distinctes.
+
+Cette logique évite le comportement indésirable observé en analogique avec PCLC où les franchissements PIT IN/PIT OUT peuvent gonfler artificiellement le nombre de PIT affichés alors qu'un seul véritable arrêt avec ravitaillement a eu lieu.
