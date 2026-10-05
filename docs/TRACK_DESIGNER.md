@@ -261,3 +261,69 @@ Ces outils génèrent la géométrie ; l'utilisateur garde ensuite la possibilit
 - représentation fidèle du circuit pour les affichages.
 
 Une longueur de voie mesurée/calibrée sur la piste réelle peut remplacer la longueur géométrique comme valeur de référence pour les calculs sportifs, sans supprimer la valeur géométrique calculée.
+
+
+## Création d'une piste libre : nombre de slots et topologie
+
+Lors de la création d'une piste bois/libre, l'utilisateur choisit le **nombre de slots** :
+
+- 1 ;
+- 2 ;
+- 3 ;
+- 4 ;
+- 5 ;
+- 6 ;
+- 7 ;
+- etc.
+
+Le modèle ne doit pas imposer un plafond métier arbitraire. L'interface peut proposer rapidement les valeurs courantes tout en autorisant une valeur supérieure.
+
+### Parallélisme par défaut
+
+L'option **Slots parallèles** est cochée par défaut.
+
+Avec cette option, Lab-Traks génère les slots à partir d'une géométrie de construction commune et d'un entraxe initial. Cela donne immédiatement un résultat propre pour la majorité des circuits.
+
+Le parallélisme est une **aide à la création**, pas une contrainte permanente. Il peut ensuite être rompu localement : resserrement, élargissement, déplacement individuel, croisement ou permutation des slots.
+
+### Topologie du tracé
+
+Le designer ne doit pas supposer qu'une piste est toujours une boucle fermée.
+
+Il doit supporter au minimum :
+
+- **boucle fermée** : circuit classique ;
+- **parcours ouvert** : départ et arrivée distincts.
+
+Cette distinction appartient à la géométrie/topologie du circuit et ne doit pas imposer à elle seule le règlement sportif.
+
+### Cas couverts
+
+#### Circuit classique
+
+Plusieurs slots, généralement parallèles au départ, boucle fermée.
+
+#### Rallye
+
+Un seul slot est un cas naturel, mais plusieurs slots ne doivent pas être interdits.
+
+Le parcours peut être ouvert ou fermé selon l'installation et le format de l'épreuve. Le format sportif décide ensuite du départ individuel, des spéciales, du classement au temps, etc.
+
+#### Dragster
+
+Le parcours ouvert permet de représenter naturellement une piste de drag :
+
+- un ou plusieurs slots ;
+- départ commun ;
+- ligne d'arrivée distincte ;
+- longueurs connues ;
+- capteurs intermédiaires possibles ;
+- zones avant/après les lignes de détection.
+
+Le designer décrit la piste. Le moteur de course définit ensuite les règles de drag : réaction, faux départ, temps intermédiaires, temps écoulé, vitesse, élimination, etc.
+
+### Principe
+
+**La géométrie ne définit pas la discipline.**
+
+Un même objet Circuit peut être utilisé par différents formats sportifs si sa configuration physique le permet.
