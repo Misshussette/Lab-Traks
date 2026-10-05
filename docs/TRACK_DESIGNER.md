@@ -202,6 +202,52 @@ Les slots peuvent être générés automatiquement puis ajustés lorsque la pist
 
 Modifier un contour ne doit pas modifier arbitrairement les slots. Les différentes géométries restent liées au même Circuit mais représentent des réalités physiques distinctes.
 
+### Slots indépendants et édition locale
+
+Sur une piste bois, chaque slot doit pouvoir posséder sa **propre géométrie**.
+
+Les voies ne sont donc pas de simples offsets permanents d'une ligne centrale.
+
+Le designer doit néanmoins rester rapide à utiliser :
+
+- par défaut, création de plusieurs slots parallèles avec un entraxe choisi ;
+- édition groupée tant que l'utilisateur ne demande rien de particulier ;
+- possibilité de sélectionner une zone et de **resserrer les voies** ;
+- possibilité de les **écarter** ;
+- possibilité de déplacer librement un slot localement ;
+- possibilité de **croiser ou permuter des voies** ;
+- génération automatique de transitions progressives entre les zones ;
+- possibilité de reprendre ensuite les courbes avec des points/nœuds et poignées.
+
+L'objectif est que les cas courants demandent très peu de manipulations, sans empêcher la reproduction d'une piste bois atypique.
+
+### Croisements et niveaux
+
+Deux slots qui se croisent géométriquement ne signifient pas forcément la même chose physiquement.
+
+Le modèle devra pouvoir distinguer au minimum :
+
+- croisement/permutation sur un même plan lorsque la construction le permet ;
+- croisement par pont/tunnel avec des niveaux différents ;
+- simple superposition accidentelle lors du dessin.
+
+Le designer doit donc pouvoir avertir d'une intersection sans l'interdire arbitrairement et permettre de préciser la relation physique entre les deux segments.
+
+### Outils de zone
+
+Pour éviter de transformer le designer en CAO complexe, les opérations courantes doivent pouvoir s'appliquer à une portion sélectionnée du tracé :
+
+- largeur/entraxe de départ ;
+- largeur/entraxe d'arrivée ;
+- resserrement progressif ;
+- élargissement progressif ;
+- permutation de deux voies ;
+- alignement ;
+- transition douce ;
+- modification simultanée de plusieurs slots.
+
+Ces outils génèrent la géométrie ; l'utilisateur garde ensuite la possibilité de l'ajuster manuellement.
+
 ### Données calculées
 
 À partir de ces géométries, Lab-Traks peut déterminer notamment :
