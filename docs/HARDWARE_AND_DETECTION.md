@@ -144,3 +144,118 @@ Pour Lab-Traks, elle doit être considérée comme une source d'entrée digitale
 - futur adaptateur universel.
 
 Le logiciel ne doit pas imposer une technologie plus complexe lorsqu'une détection simple répond correctement au besoin.
+
+
+## Piste de recherche — points de mesure distribués
+
+> Statut : **architecture candidate à prototyper, pas décision matérielle définitive**.
+
+Pour rendre les intermédiaires accessibles financièrement et simples à installer, une piste prometteuse consiste à créer un **nœud de mesure local** installé près du point de détection.
+
+### Objectif
+
+Un même type de nœud pourrait couvrir de 1 à 10 voies.
+
+Il reçoit des capteurs simples et horodate localement leurs fronts avec un timer matériel, puis transmet les événements au système Lab-Traks.
+
+Exemples d'usage du même nœud :
+
+- départ/arrivée ;
+- intermédiaire ;
+- secteur ;
+- PIT IN/PIT OUT ;
+- point de vitesse ;
+- rallye ;
+- drag.
+
+### Capteurs optiques sous le slot
+
+Pour les pistes bois, une solution particulièrement intéressante est l'optocoupleur placé sous le slot : la lame-guide de la voiture coupe directement le faisceau infrarouge.
+
+Avantages à valider par prototype :
+
+- aucune électronique dans la voiture ;
+- pas de portique au-dessus de la piste ;
+- indépendant de la couleur de carrosserie ;
+- fonctionne dans l'obscurité ;
+- coût potentiellement faible ;
+- installation répétable ;
+- détection directement associée au slot concerné.
+
+Cette technique existe déjà dans des systèmes de slot commerciaux et amateurs.
+
+Les capteurs IR modulés rapides constituent une autre variante lorsque la géométrie impose une barrière séparée.
+
+### Mesure de vitesse sans radar
+
+Pour mesurer la vitesse à un point, deux capteurs A et B peuvent être installés à une distance précisément connue.
+
+```text
+---- A -------- distance connue -------- B ---->
+        voiture
+```
+
+Le nœud horodate les deux passages avec la même horloge.
+
+```text
+vitesse = distance(A,B) / (timestamp B - timestamp A)
+```
+
+Avec 10 voies, un nœud destiné à la vitesse peut donc nécessiter jusqu'à 20 entrées numériques.
+
+La distance A-B doit être configurable et adaptée à la vitesse et à l'installation. La précision réelle devra être mesurée sur prototype plutôt que supposée.
+
+### Horodatage
+
+Le PC ne doit pas être chargé de détecter précisément le front du capteur.
+
+Le nœud local doit capturer l'instant au plus près du signal, idéalement par timer/input-capture matériel.
+
+Pour comparer des temps issus de nœuds différents, il faudra définir une stratégie de synchronisation d'horloge ou une autre méthode garantissant la précision cible.
+
+### Bus entre les points de mesure
+
+Un circuit peut avoir plusieurs points éloignés : départ, plusieurs intermédiaires, stands, arrivée.
+
+Une liaison filaire différentielle multipoint est une piste logique pour relier les nœuds et éviter un câble USB vers chaque point.
+
+**CAN et RS-485 sont des candidats à comparer. Aucun n'est choisi à ce stade.**
+
+Critères :
+
+- fiabilité ;
+- coût ;
+- câblage simple ;
+- alimentation possible des nœuds le long du circuit ;
+- plusieurs nœuds ;
+- événements quasi simultanés ;
+- diagnostic ;
+- synchronisation ;
+- facilité de fabrication et de maintenance.
+
+### Radar
+
+Le radar reste une technologie à étudier, notamment pour des usages spécifiques de mesure de vitesse.
+
+Il ne doit cependant pas être considéré comme nécessaire au système de base.
+
+Pour plusieurs voies très proches, les principaux points à valider sont :
+
+- séparation spatiale des véhicules ;
+- largeur du champ de détection ;
+- identification de la voie/voiture ;
+- mouvements parasites ;
+- coût ;
+- complexité du traitement.
+
+Un radar simple peut mesurer mouvement, direction et vitesse mais n'offre pas nécessairement une résolution angulaire suffisante pour distinguer plusieurs slots rapprochés.
+
+### Analogique, rallye et digital
+
+En analogique, le slot/voie permet généralement d'associer directement le passage au concurrent de la manche.
+
+En rallye avec un concurrent à la fois, l'association est également simple.
+
+En digital, plusieurs voitures peuvent utiliser la même voie physique : un capteur optique de passage ne fournit alors pas nécessairement l'identité de la voiture. Lab-Traks doit pouvoir compléter le point de mesure par une technologie d'identification (protocole digital, transpondeur ou autre) lorsque le cas d'usage l'exige.
+
+Le **passage** et l'**identité** restent donc deux capacités distinctes.
