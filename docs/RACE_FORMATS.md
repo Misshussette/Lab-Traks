@@ -163,3 +163,35 @@ Le capteur physique n'est pas dupliqué.
 Le moteur détermine l'occurrence logique attendue à partir de la progression du concurrent dans la spéciale et, lorsque disponible, du sens ou d'autres informations fournies par le matériel.
 
 Cela permet d'utiliser une infrastructure de détection simple pour obtenir un chronométrage rallye complet.
+
+## Stands — état PIT et ravitaillement
+
+Le passage aux stands doit être traité comme un **état métier**, distinct du signal électrique ou optique brut.
+
+Modèle conceptuel :
+
+```text
+HORS PIT
+   ↓ PIT IN détecté
+ENTRÉE PIT
+   ↓ condition d'entrée validée
+PIT CONFIRMÉ
+   ↓ règles de course satisfaites
+RAVITAILLEMENT AUTORISÉ
+   ↓ PIT OUT détecté
+HORS PIT
+```
+
+Le comportement de PC Lap Counter constitue une référence utile : sur certaines configurations d'entrées brutes, PCLC utilise une durée minimale de PIT / un maintien du capteur pour confirmer l'état PIT, puis gère la sortie séparément ou au relâchement selon la configuration.
+
+Pour Lab-Traks :
+
+- `PIT IN` et `PIT OUT` sont des événements/capacités, pas nécessairement deux technologies différentes ;
+- l'entrée peut nécessiter un délai ou une condition de confirmation ;
+- tant qu'aucun `PIT OUT` valide n'est reçu, le moteur peut conserver le concurrent dans l'état PIT ;
+- le ravitaillement peut commencer seulement lorsque l'état PIT est confirmé et que les règles configurées l'autorisent ;
+- le ravitaillement n'est jamais déclenché directement par le capteur lui-même ;
+- une détection de présence continue n'est pas obligatoire pour ce fonctionnement ;
+- les règles exactes doivent rester configurables selon matériel et format de course.
+
+Cela permet de reproduire les comportements éprouvés de PCLC sans figer Lab-Traks sur une implémentation matérielle particulière.
