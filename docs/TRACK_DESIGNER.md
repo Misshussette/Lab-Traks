@@ -165,3 +165,53 @@ Sans compliquer le premier designer :
 - vue 3D.
 
 Ces fonctions sont secondaires par rapport à un designer 2D simple et fiable.
+
+
+## Pistes bois / routed tracks
+
+Une piste bois ne doit pas être modélisée comme une succession de rails standards ni comme une simple ligne centrale avec largeur constante.
+
+Le designer doit permettre de travailler avec plusieurs géométries liées mais distinctes :
+
+- trajectoire ou ligne de construction ;
+- slots/voies ;
+- contour intérieur de la piste ;
+- contour extérieur de la piste.
+
+### Largeur variable
+
+Les contours intérieur et extérieur doivent être **éditables indépendamment**.
+
+La largeur de piste peut donc varier librement selon la zone :
+
+- élargissement dans un virage ;
+- dégagement important à l'extérieur ;
+- zone de ramassage ;
+- resserrement ;
+- ligne droite plus étroite ;
+- zone des stands ;
+- forme particulière imposée par le plateau ou la salle.
+
+Une génération automatique à partir d'une ligne de construction et d'une largeur initiale peut servir de point de départ, mais elle ne doit jamais imposer une largeur constante.
+
+### Édition
+
+L'utilisateur doit pouvoir déplacer les points/nœuds et poignées de courbe des contours intérieur et extérieur.
+
+Les slots peuvent être générés automatiquement puis ajustés lorsque la piste réelle l'exige.
+
+Modifier un contour ne doit pas modifier arbitrairement les slots. Les différentes géométries restent liées au même Circuit mais représentent des réalités physiques distinctes.
+
+### Données calculées
+
+À partir de ces géométries, Lab-Traks peut déterminer notamment :
+
+- encombrement réel du circuit ;
+- largeur locale de piste ;
+- longueur géométrique de chaque slot ;
+- position des capteurs ;
+- secteurs/splits ;
+- zones de stands ;
+- représentation fidèle du circuit pour les affichages.
+
+Une longueur de voie mesurée/calibrée sur la piste réelle peut remplacer la longueur géométrique comme valeur de référence pour les calculs sportifs, sans supprimer la valeur géométrique calculée.
